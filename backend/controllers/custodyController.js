@@ -1,14 +1,42 @@
 import Evidence from "../models/Evidence.js";
 import CustodyLog from "../models/CustodyLog.js";
+import User from "../models/User.js";   // 👈 Add this to fetch toUser details
 
 // Transfer Evidence
 export const transferEvidence = async (req, res) => {
   try {
     const { toUserId, action } = req.body;
     const evidence = await Evidence.findById(req.params.id);
-    if (!evidence) return res.status(404).json({ msg: "Evidence not found" });
+    if (!evidence) {
+      return res.status(404).json({ msg: "Evidence record not found in the system." });
+    }
 
-  
+    // Fetch toUser (for validation)
+    const toUser = await User.findById(toUserId);
+    if (!toUser) {
+      return res.status(404).json({ msg: "Recipient user not found." });
+    }
+
+    // --- 🔹 VALIDATION RULES ---
+    // Police cannot send evidence directly to Court
+    if (req.user.role === "police" && action === "Transferred") {
+      if (toUser.role === "court") {
+        return res.status(400).json({ msg: "Evidence must go to FSL before Court." });
+      }
+    }
+
+    // FSL cannot send to Court unless Report Ready
+    if (req.user.role === "fsl" && action === "Transferred") {
+      if (toUser.role === "court" && evidence.status !== "Report Ready") {
+        return res.status(400).json({ msg: "FSL can only send to Court once Report is Ready." });
+      }
+    }
+
+    // Court cannot transfer further
+    if (req.user.role === "court") {
+      return res.status(400).json({ msg: "Court cannot transfer evidence further." });
+    }
+
     // --- 🔹 Update Evidence Status depending on role/action ---
     let newStatus = evidence.status;
 
@@ -17,9 +45,8 @@ export const transferEvidence = async (req, res) => {
     } else if (action === "Transferred") {
       newStatus = "In Transit";
     } else if (action === "Received") {
-      // role based status
       if (req.user.role === "police" && evidence.currentHolder.toString() !== toUserId) {
-        newStatus = "In Transit"; // police → FSL or court
+        newStatus = "In Transit"; 
       }
       if (req.user.role === "fsl") {
         newStatus = "At FSL";
@@ -51,16 +78,3 @@ export const transferEvidence = async (req, res) => {
   }
 };
 
-// Get Custody Logs
-export const getCustodyLogs = async (req, res) => {
-  try {
-    const logs = await CustodyLog.find({ evidenceId: req.params.id })
-      .populate("fromUser", "name role")
-      .populate("toUser", "name role")
-      .sort({ timestamp: 1 });
-
-    res.json(logs);
-  } catch (err) {
-    res.status(500).json({ msg: err.message });
-  }
-};
