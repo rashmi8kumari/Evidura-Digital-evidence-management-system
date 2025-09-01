@@ -2,10 +2,19 @@ import Evidence from "../models/Evidence.js";
 import CustodyLog from "../models/CustodyLog.js";
 import User from "../models/User.js";   // for recipient validation
 
+
 // ----------------- 🔹 TRANSFER EVIDENCE -----------------
 export const transferEvidence = async (req, res) => {
   try {
     const { toUserId, action } = req.body;
+
+    // --- validate action early ---
+    const allowedActions = ["Seized", "Transferred", "Received", "Report Ready"];
+    if (!allowedActions.includes(action)) {
+      return res.status(400).json({
+        msg: `Invalid action. Allowed: ${allowedActions.join(", ")}`
+      });
+    }
     const evidence = await Evidence.findById(req.params.id);
     if (!evidence) {
       return res.status(404).json({ msg: "Evidence record not found in the system." });
