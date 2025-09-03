@@ -18,10 +18,14 @@ function EvidenceDetails() {
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.msg || "Failed");
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(()=>{ fetch(); }, [id]);
+  useEffect(() => {
+    fetch();
+  }, [id]);
 
   if (loading) return <div className="p-4">Loading...</div>;
   if (!item) return <div className="p-4">No evidence found</div>;
@@ -32,7 +36,9 @@ function EvidenceDetails() {
       <div className="card mb-3 p-3">
         <h5>{item.caseId}</h5>
         <p>{item.description}</p>
-        <div>Status: <span className="badge bg-info">{item.status}</span></div>
+        <div>
+          Status: <span className="badge bg-info">{item.status}</span>
+        </div>
         <div>Current Holder: {item.currentHolder?.name || "—"}</div>
         <div>Created By: {item.createdBy?.name || "—"}</div>
       </div>
@@ -40,14 +46,21 @@ function EvidenceDetails() {
       <div className="card p-3">
         <h6>Custody Timeline</h6>
         <ul className="list-group list-group-flush mt-2">
-          {logs.length ? logs.map(l => (
-            <li className="list-group-item" key={l._id}>
-              <div><strong>{l.action}</strong> — {new Date(l.timestamp).toLocaleString()}</div>
-              <div className="text-muted small">
-                From: {l.fromUser?.name || "—"} | To: {l.toUser?.name || "—"}
-              </div>
-            </li>
-          )) : <li className="list-group-item">No logs available</li>}
+          {logs.length ? (
+            logs.map((l) => (
+              <li className="list-group-item" key={l._id}>
+                <div>
+                  <strong>{l.action}</strong> —{" "}
+                  {new Date(l.timestamp).toLocaleString()}
+                </div>
+                <div className="text-muted small">
+                  From: {l.fromUser?.name || "—"} | To: {l.toUser?.name || "—"}
+                </div>
+              </li>
+            ))
+          ) : (
+            <li className="list-group-item">No logs available</li>
+          )}
         </ul>
       </div>
     </div>
@@ -55,4 +68,3 @@ function EvidenceDetails() {
 }
 
 export default EvidenceDetails;
-
