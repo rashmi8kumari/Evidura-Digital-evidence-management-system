@@ -25,7 +25,7 @@ function AdminDashboard() {
 
   // ✅ Prepare chart data
   const statusData = Object.entries(summary.byStatus || {}).map(([name, value]) => ({ name, value }));
-  const roleData = Object.entries(summary.byRole || {}).map(([name, value]) => ({ name, value }));
+  const roleData = Object.entries(summary.byHolderRole || {}).map(([name, value]) => ({ name, value }));
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28EFF"];
 
@@ -73,7 +73,7 @@ function AdminDashboard() {
           <div className="card p-3">
             <h6>Holder Role Counts</h6>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={roleData}>
+              <BarChart data={roleData} width={400} height={300}>
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
