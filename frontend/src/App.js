@@ -10,6 +10,7 @@ import PoliceDashboard from "./pages/PoliceDashboard";
 import FSLDashboard from "./pages/FSLDashboard";
 import CourtDashboard from "./pages/CourtDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserManagement from "./pages/UserManagement";
 import EvidenceDetails from "./pages/EvidenceDetails";
 
 
@@ -56,6 +57,14 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/admin/users"
+            element={
+              <PrivateRoute allowedRoles={["admin"]}>
+                <UserManagement />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/evidence/:id"
@@ -72,6 +81,7 @@ function App() {
             element={<h3 className="text-center">404 - Page not found</h3>}
           />
         </Routes>
+
       </div>
     </>
   );
