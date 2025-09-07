@@ -13,7 +13,7 @@ function FSLDashboard() {
     try {
       const res = await api.get("/evidence");
 
-      // ✅ Filter only FSL-relevant evidence
+      // Filter only FSL-relevant evidence
       const filtered = res.data.data.filter(
         (ev) =>
           ev.status === "In Transit" ||
@@ -50,7 +50,7 @@ function FSLDashboard() {
 
   return (
     <div className="p-3">
-      <h3 className="mb-4">🔬 FSL Dashboard</h3>
+      <h3 className="mb-4"> FSL Dashboard</h3>
 
       <div className="card shadow-sm">
         <div className="card-body">
@@ -101,7 +101,7 @@ function FSLDashboard() {
                           View
                         </Link>
 
-                        {/* ✅ Receive Button */}
+                        {/* Receive Button */}
                         {ev.status === "In Transit" && (
                           <button
                             className="btn btn-sm btn-success me-2"
@@ -111,7 +111,7 @@ function FSLDashboard() {
                           </button>
                         )}
 
-                        {/* ✅ Mark Report Ready */}
+                        {/*  Mark Report Ready */}
                         {ev.status === "At FSL" && (
                           <button
                             className="btn btn-sm btn-warning me-2"
@@ -121,7 +121,7 @@ function FSLDashboard() {
                           </button>
                         )}
 
-                        {/* ✅ Send to Court */}
+                        {/* Send to Court */}
                         {ev.status === "Report Ready" &&
                           courtUsers.length > 0 && (
                             <button

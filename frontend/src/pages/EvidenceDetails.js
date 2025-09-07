@@ -32,7 +32,7 @@ function EvidenceDetails() {
 
   return (
     <div className="p-3">
-      <h3 className="mb-4">🔍 Evidence Details</h3>
+      <h3 className="mb-4"> Evidence Details</h3>
 
       {/* Evidence Info Card */}
       <div className="card shadow-sm mb-4">
@@ -73,7 +73,7 @@ function EvidenceDetails() {
       {/* Custody Timeline */}
       <div className="card shadow-sm">
         <div className="card-body">
-          <h5 className="card-title">📜 Custody Timeline</h5>
+          <h5 className="card-title"> Custody Timeline</h5>
           <ul className="list-group list-group-flush mt-2">
             {logs.length ? (
               logs.map((l) => (

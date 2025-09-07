@@ -80,9 +80,9 @@ const Navbar = () => {
               <Link
                 className="nav-link text-white"
                 to="/about"
-                onClick={closeSidebar}   // ✅ Sidebar close
+                onClick={closeSidebar}   // Sidebar close
               >
-                📖 About
+                 About
               </Link>
             </li>
             <li className="nav-item mb-2">
@@ -91,7 +91,7 @@ const Navbar = () => {
                 to="/community"
                 onClick={closeSidebar}
               >
-                🤝 Community Support
+                 Community Support
               </Link>
               <ul className="ms-3 mt-1">
                 <li>
@@ -100,7 +100,7 @@ const Navbar = () => {
                     to="/community/user-guide"
                     onClick={closeSidebar}
                   >
-                    📘 User Guide
+                     User Guide
                   </Link>
                 </li>
                 <li>
@@ -109,7 +109,7 @@ const Navbar = () => {
                     to="/community/module-writer"
                     onClick={closeSidebar}
                   >
-                    📝 Module Writer Guide
+                     Module Writer Guide
                   </Link>
                 </li>
               </ul>
@@ -124,7 +124,7 @@ const Navbar = () => {
                     to="/login"
                     onClick={closeSidebar}
                   >
-                    🔑 Login
+                    Login
                   </Link>
                 </li>
                 <li className="nav-item mb-2">
@@ -133,7 +133,7 @@ const Navbar = () => {
                     to="/register"
                     onClick={closeSidebar}
                   >
-                    📝 Register
+                    Register
                   </Link>
                 </li>
               </>
@@ -147,7 +147,7 @@ const Navbar = () => {
                   to="/police-dashboard"
                   onClick={closeSidebar}
                 >
-                  🚔 Police Dashboard
+                   Police Dashboard
                 </Link>
               </li>
             )}
@@ -159,7 +159,7 @@ const Navbar = () => {
                   to="/fsl-dashboard"
                   onClick={closeSidebar}
                 >
-                  🧪 FSL Dashboard
+                   FSL Dashboard
                 </Link>
               </li>
             )}
@@ -171,7 +171,7 @@ const Navbar = () => {
                   to="/court-dashboard"
                   onClick={closeSidebar}
                 >
-                  ⚖️ Court Dashboard
+                  Court Dashboard
                 </Link>
               </li>
             )}
@@ -184,7 +184,7 @@ const Navbar = () => {
                     to="/admin-dashboard"
                     onClick={closeSidebar}
                   >
-                    🛠️ Admin Dashboard
+                     Admin Dashboard
                   </Link>
                 </li>
                 <li className="nav-item mb-2">
@@ -193,7 +193,7 @@ const Navbar = () => {
                     to="/admin/users"
                     onClick={closeSidebar}
                   >
-                    👥 User Management
+                    User Management
                   </Link>
                 </li>
               </>

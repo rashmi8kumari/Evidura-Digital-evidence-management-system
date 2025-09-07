@@ -10,10 +10,10 @@ function Community() {
       </p>
       <ul>
         <li>
-          <Link to="/community/user-guide">📘 User Guide</Link>
+          <Link to="/community/user-guide"> User Guide</Link>
         </li>
         <li>
-          <Link to="/community/module-writer">📝 Module Writer Guide</Link>
+          <Link to="/community/module-writer"> Module Writer Guide</Link>
         </li>
       </ul>
     </div>

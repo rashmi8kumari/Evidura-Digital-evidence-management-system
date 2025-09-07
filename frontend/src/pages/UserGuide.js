@@ -9,10 +9,10 @@ function UserGuide() {
         use the Evidence Tracker system.
       </p>
       <ol>
-        <li>👉 Police: Add and transfer evidence to FSL or Court.</li>
-        <li>👉 FSL: Receive evidence, analyze it, and upload reports.</li>
-        <li>👉 Court: Accept evidence and review case status.</li>
-        <li>👉 Admin: Manage users, dashboards, and oversee flow.</li>
+        <li> Police: Add and transfer evidence to FSL or Court.</li>
+        <li> FSL: Receive evidence, analyze it, and upload reports.</li>
+        <li> Court: Accept evidence and review case status.</li>
+        <li> Admin: Manage users, dashboards, and oversee flow.</li>
       </ol>
     </div>
   );

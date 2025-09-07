@@ -12,7 +12,7 @@ function CourtDashboard() {
     try {
       const res = await api.get("/evidence");
 
-      // ✅ Court me sirf wahi records dikhne chahiye jo Court ke liye aaye hain
+      // Court me sirf wahi records dikhne chahiye jo Court ke liye aaye hain
       const courtData = res.data.data.filter(
         (ev) => ev.status === "In Transit" || ev.status === "In Court"
       );
@@ -40,7 +40,7 @@ function CourtDashboard() {
 
   return (
     <div className="p-3">
-      <h3 className="mb-4">⚖️ Court Dashboard</h3>
+      <h3 className="mb-4">Court Dashboard</h3>
 
       <div className="card shadow-sm">
         <div className="card-body table-responsive">
@@ -88,17 +88,17 @@ function CourtDashboard() {
                         View
                       </Link>
 
-                      {/* ✅ Receive Button only if status = In Transit */}
+                      {/* Receive Button only if status = In Transit */}
                       {ev.status === "In Transit" && (
                         <button
                           className="btn btn-sm btn-success"
                           onClick={() => doAction(ev._id, "Received")}
                         >
-                          ✅ Receive
+                          Receive
                         </button>
                       )}
 
-                      {/* ✅ Already in Court → Readonly badge */}
+                      {/* Already in Court → Readonly badge */}
                       {ev.status === "In Court" && (
                         <span className="badge bg-success">
                           Evidence in Court

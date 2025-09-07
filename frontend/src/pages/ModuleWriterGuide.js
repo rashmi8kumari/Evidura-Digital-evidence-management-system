@@ -9,10 +9,10 @@ function ModuleWriterGuide() {
         will help you understand the structure and development process.
       </p>
       <ul>
-        <li>🛠️ Follow coding standards (React + Node.js).</li>
-        <li>📦 Organize components inside <code>/components</code> and pages inside <code>/pages</code>.</li>
-        <li>🔑 Always use role-based access for new modules.</li>
-        <li>🧪 Write test cases for critical features.</li>
+        <li> Follow coding standards (React + Node.js).</li>
+        <li> Organize components inside <code>/components</code> and pages inside <code>/pages</code>.</li>
+        <li> Always use role-based access for new modules.</li>
+        <li> Write test cases for critical features.</li>
       </ul>
     </div>
   );
