@@ -1,3 +1,4 @@
+// src/App.js
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -12,6 +13,12 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserManagement from "./pages/UserManagement";
 import EvidenceDetails from "./pages/EvidenceDetails";
 
+// 🔹 New pages
+import About from "./pages/About";
+import Community from "./pages/Community";
+import UserGuide from "./pages/UserGuide";
+import ModuleWriterGuide from "./pages/ModuleWriterGuide";
+
 function App() {
   return (
     <>
@@ -21,6 +28,15 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* General Pages */}
+          <Route path="/about" element={<About />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/community/user-guide" element={<UserGuide />} />
+          <Route
+            path="/community/module-writer"
+            element={<ModuleWriterGuide />}
+          />
 
           {/* Protected routes */}
           <Route
@@ -51,7 +67,7 @@ function App() {
             path="/admin-dashboard"
             element={
               <PrivateRoute allowedRoles={["admin"]}>
-                {/* ✅ Admin Dashboard + User Management shortcut */}
+                {/* Admin Dashboard + User Management shortcut */}
                 <div>
                   <AdminDashboard />
                   <div className="text-center mt-4">
@@ -96,4 +112,5 @@ function App() {
 }
 
 export default App;
+
 

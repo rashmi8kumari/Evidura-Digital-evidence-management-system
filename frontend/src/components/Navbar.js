@@ -1,8 +1,8 @@
-// src/components/Navbar.js
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getRole, clearAuth } from "../utils/auth";
-import { FaBars, FaUserShield, FaUsers, FaGavel, FaMicroscope, FaUserTie } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import * as bootstrap from "bootstrap"; // ✅ bootstrap instance import
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,6 +11,15 @@ const Navbar = () => {
   const logout = () => {
     clearAuth();
     navigate("/login");
+  };
+
+  // Sidebar close helper
+  const closeSidebar = () => {
+    const sidebar = document.getElementById("sidebarMenu");
+    if (sidebar) {
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+      if (bsOffcanvas) bsOffcanvas.hide();
+    }
   };
 
   return (
@@ -33,7 +42,7 @@ const Navbar = () => {
           {role && (
             <div className="d-flex align-items-center">
               <span className="text-light me-3">
-                Role: <strong className="text-capitalize">{role}</strong>
+                Role: <strong>{role}</strong>
               </span>
               <button className="btn btn-sm btn-danger" onClick={logout}>
                 Logout
@@ -49,7 +58,7 @@ const Navbar = () => {
         tabIndex="-1"
         id="sidebarMenu"
         aria-labelledby="sidebarMenuLabel"
-        style={{ width: "250px" }}
+        style={{ width: "260px" }}
       >
         <div className="offcanvas-header border-bottom">
           <h5 className="offcanvas-title" id="sidebarMenuLabel">
@@ -62,63 +71,129 @@ const Navbar = () => {
             aria-label="Close"
           ></button>
         </div>
+
         <div className="offcanvas-body">
           <ul className="nav flex-column">
 
-            {/* Guest Links */}
-            {!role && (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link text-white" to="/login" data-bs-dismiss="offcanvas">
-                    Login
+            {/* General Pages */}
+            <li className="nav-item mb-2">
+              <Link
+                className="nav-link text-white"
+                to="/about"
+                onClick={closeSidebar}   // ✅ Sidebar close
+              >
+                📖 About
+              </Link>
+            </li>
+            <li className="nav-item mb-2">
+              <Link
+                className="nav-link text-white"
+                to="/community"
+                onClick={closeSidebar}
+              >
+                🤝 Community Support
+              </Link>
+              <ul className="ms-3 mt-1">
+                <li>
+                  <Link
+                    className="nav-link text-light small"
+                    to="/community/user-guide"
+                    onClick={closeSidebar}
+                  >
+                    📘 User Guide
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link text-white" to="/register" data-bs-dismiss="offcanvas">
-                    Register
+                <li>
+                  <Link
+                    className="nav-link text-light small"
+                    to="/community/module-writer"
+                    onClick={closeSidebar}
+                  >
+                    📝 Module Writer Guide
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            {/* Auth Links */}
+            {!role && (
+              <>
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link text-white"
+                    to="/login"
+                    onClick={closeSidebar}
+                  >
+                    🔑 Login
+                  </Link>
+                </li>
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link text-white"
+                    to="/register"
+                    onClick={closeSidebar}
+                  >
+                    📝 Register
                   </Link>
                 </li>
               </>
             )}
 
-            {/* Police */}
+            {/* Role Based */}
             {role === "police" && (
-              <li className="nav-item">
-                <Link className="nav-link text-white" to="/police-dashboard" data-bs-dismiss="offcanvas">
-                  <FaUserShield className="me-2" /> Police Dashboard
+              <li className="nav-item mb-2">
+                <Link
+                  className="nav-link text-white"
+                  to="/police-dashboard"
+                  onClick={closeSidebar}
+                >
+                  🚔 Police Dashboard
                 </Link>
               </li>
             )}
 
-            {/* FSL */}
             {role === "fsl" && (
-              <li className="nav-item">
-                <Link className="nav-link text-white" to="/fsl-dashboard" data-bs-dismiss="offcanvas">
-                  <FaMicroscope className="me-2" /> FSL Dashboard
+              <li className="nav-item mb-2">
+                <Link
+                  className="nav-link text-white"
+                  to="/fsl-dashboard"
+                  onClick={closeSidebar}
+                >
+                  🧪 FSL Dashboard
                 </Link>
               </li>
             )}
 
-            {/* Court */}
             {role === "court" && (
-              <li className="nav-item">
-                <Link className="nav-link text-white" to="/court-dashboard" data-bs-dismiss="offcanvas">
-                  <FaGavel className="me-2" /> Court Dashboard
+              <li className="nav-item mb-2">
+                <Link
+                  className="nav-link text-white"
+                  to="/court-dashboard"
+                  onClick={closeSidebar}
+                >
+                  ⚖️ Court Dashboard
                 </Link>
               </li>
             )}
 
-            {/* Admin */}
             {role === "admin" && (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link text-white" to="/admin-dashboard" data-bs-dismiss="offcanvas">
-                    <FaUserTie className="me-2" /> Admin Dashboard
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link text-white"
+                    to="/admin-dashboard"
+                    onClick={closeSidebar}
+                  >
+                    🛠️ Admin Dashboard
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link text-white" to="/admin/users" data-bs-dismiss="offcanvas">
-                    <FaUsers className="me-2" /> User Management
+                <li className="nav-item mb-2">
+                  <Link
+                    className="nav-link text-white"
+                    to="/admin/users"
+                    onClick={closeSidebar}
+                  >
+                    👥 User Management
                   </Link>
                 </li>
               </>
@@ -131,6 +206,9 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
 
 
 
