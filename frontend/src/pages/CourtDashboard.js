@@ -1,3 +1,4 @@
+// src/pages/CourtDashboard.js
 import React, { useEffect, useState } from "react";
 import { api } from "../utils/auth";
 import { Link } from "react-router-dom";
@@ -38,46 +39,48 @@ function CourtDashboard() {
   };
 
   return (
-    <div>
-      <h3 className="mb-3">Court Dashboard</h3>
+    <div className="p-3">
+      <h3 className="mb-4">⚖️ Court Dashboard</h3>
 
-      <div className="card">
-        <div className="table-responsive">
-          <table className="table table-hover mb-0">
-            <thead className="table-light">
+      <div className="card shadow-sm">
+        <div className="card-body table-responsive">
+          <table className="table table-hover align-middle">
+            <thead className="table-dark">
               <tr>
                 <th>Case ID</th>
                 <th>Description</th>
                 <th>Status</th>
                 <th>Holder</th>
-                <th>Actions</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
                   <td colSpan="5" className="text-center p-4">
-                    Loading...
+                    Loading records...
                   </td>
                 </tr>
               ) : data.length ? (
                 data.map((ev) => (
                   <tr key={ev._id}>
-                    <td>{ev.caseId}</td>
+                    <td>
+                      <span className="fw-bold">{ev.caseId}</span>
+                    </td>
                     <td>{ev.description}</td>
                     <td>
                       <span
-                        className={`badge ${
+                        className={`badge px-3 py-2 ${
                           ev.status === "In Court"
                             ? "bg-success"
-                            : "bg-warning"
+                            : "bg-warning text-dark"
                         }`}
                       >
                         {ev.status}
                       </span>
                     </td>
                     <td>{ev.currentHolder?.name || "—"}</td>
-                    <td>
+                    <td className="text-center">
                       <Link
                         className="btn btn-sm btn-outline-primary me-2"
                         to={`/evidence/${ev._id}`}
@@ -85,17 +88,17 @@ function CourtDashboard() {
                         View
                       </Link>
 
-                      {/* ✅ Receive Button only for Court */}
+                      {/* ✅ Receive Button only if status = In Transit */}
                       {ev.status === "In Transit" && (
                         <button
                           className="btn btn-sm btn-success"
                           onClick={() => doAction(ev._id, "Received")}
                         >
-                          Receive
+                          ✅ Receive
                         </button>
                       )}
 
-                      {/* ✅ Already in Court → Readonly */}
+                      {/* ✅ Already in Court → Readonly badge */}
                       {ev.status === "In Court" && (
                         <span className="badge bg-success">
                           Evidence in Court
@@ -106,8 +109,8 @@ function CourtDashboard() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center p-4">
-                    No records
+                  <td colSpan="5" className="text-center p-4 text-muted">
+                    No records found
                   </td>
                 </tr>
               )}
@@ -120,6 +123,7 @@ function CourtDashboard() {
 }
 
 export default CourtDashboard;
+
 
 
 

@@ -1,3 +1,4 @@
+// src/pages/FSLDashboard.js
 import React, { useEffect, useState } from "react";
 import { api } from "../utils/auth";
 import { Link } from "react-router-dom";
@@ -48,89 +49,107 @@ function FSLDashboard() {
   };
 
   return (
-    <div>
-      <h3 className="mb-3">FSL Dashboard</h3>
+    <div className="p-3">
+      <h3 className="mb-4">🔬 FSL Dashboard</h3>
 
-      <div className="card">
-        <div className="table-responsive">
-          <table className="table table-hover mb-0">
-            <thead className="table-light">
-              <tr>
-                <th>Case ID</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Holder</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading ? (
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <div className="table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead className="table-light">
                 <tr>
-                  <td colSpan="5" className="text-center p-4">
-                    Loading...
-                  </td>
+                  <th>Case ID</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Current Holder</th>
+                  <th>Actions</th>
                 </tr>
-              ) : data.length ? (
-                data.map((ev) => (
-                  <tr key={ev._id}>
-                    <td>{ev.caseId}</td>
-                    <td>{ev.description}</td>
-                    <td>
-                      <span className="badge bg-secondary">{ev.status}</span>
-                    </td>
-                    <td>{ev.currentHolder?.name || "—"}</td>
-                    <td>
-                      <Link
-                        className="btn btn-sm btn-outline-primary me-2"
-                        to={`/evidence/${ev._id}`}
-                      >
-                        View
-                      </Link>
-
-                      {/* ✅ Receive Button */}
-                      {ev.status === "In Transit" && (
-                        <button
-                          className="btn btn-sm btn-success me-2"
-                          onClick={() => doAction(ev._id, "Received")}
-                        >
-                          Receive
-                        </button>
-                      )}
-
-                      {/* ✅ Mark Report Ready */}
-                      {ev.status === "At FSL" && (
-                        <button
-                          className="btn btn-sm btn-warning me-2"
-                          onClick={() => doAction(ev._id, "Report Ready")}
-                        >
-                          Mark Report Ready
-                        </button>
-                      )}
-
-                      {/* ✅ Send to Court */}
-                      {ev.status === "Report Ready" &&
-                        courtUsers.length > 0 && (
-                          <button
-                            className="btn btn-sm btn-dark"
-                            onClick={() =>
-                              doAction(ev._id, "Transferred", courtUsers[0]._id)
-                            }
-                          >
-                            Send to Court
-                          </button>
-                        )}
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan="5" className="text-center p-4">
+                      Loading evidence...
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" className="text-center p-4">
-                    No records
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                ) : data.length ? (
+                  data.map((ev) => (
+                    <tr key={ev._id}>
+                      <td className="fw-bold">{ev.caseId}</td>
+                      <td>{ev.description}</td>
+                      <td>
+                        <span
+                          className={`badge px-3 py-2 ${
+                            ev.status === "At FSL"
+                              ? "bg-info text-dark"
+                              : ev.status === "Report Ready"
+                              ? "bg-primary"
+                              : ev.status === "In Transit"
+                              ? "bg-warning text-dark"
+                              : "bg-secondary"
+                          }`}
+                        >
+                          {ev.status}
+                        </span>
+                      </td>
+                      <td>{ev.currentHolder?.name || "—"}</td>
+                      <td>
+                        <Link
+                          className="btn btn-sm btn-outline-primary me-2"
+                          to={`/evidence/${ev._id}`}
+                        >
+                          View
+                        </Link>
+
+                        {/* ✅ Receive Button */}
+                        {ev.status === "In Transit" && (
+                          <button
+                            className="btn btn-sm btn-success me-2"
+                            onClick={() => doAction(ev._id, "Received")}
+                          >
+                            Receive
+                          </button>
+                        )}
+
+                        {/* ✅ Mark Report Ready */}
+                        {ev.status === "At FSL" && (
+                          <button
+                            className="btn btn-sm btn-warning me-2"
+                            onClick={() => doAction(ev._id, "Report Ready")}
+                          >
+                            Mark Report Ready
+                          </button>
+                        )}
+
+                        {/* ✅ Send to Court */}
+                        {ev.status === "Report Ready" &&
+                          courtUsers.length > 0 && (
+                            <button
+                              className="btn btn-sm btn-dark"
+                              onClick={() =>
+                                doAction(
+                                  ev._id,
+                                  "Transferred",
+                                  courtUsers[0]._id
+                                )
+                              }
+                            >
+                              Send to Court
+                            </button>
+                          )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center p-4 text-muted">
+                      No records found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -138,6 +157,7 @@ function FSLDashboard() {
 }
 
 export default FSLDashboard;
+
 
 
 

@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -12,7 +11,6 @@ import CourtDashboard from "./pages/CourtDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserManagement from "./pages/UserManagement";
 import EvidenceDetails from "./pages/EvidenceDetails";
-
 
 function App() {
   return (
@@ -53,7 +51,18 @@ function App() {
             path="/admin-dashboard"
             element={
               <PrivateRoute allowedRoles={["admin"]}>
-                <AdminDashboard />
+                {/* ✅ Admin Dashboard + User Management shortcut */}
+                <div>
+                  <AdminDashboard />
+                  <div className="text-center mt-4">
+                    <a
+                      href="/admin/users"
+                      className="btn btn-lg btn-outline-primary"
+                    >
+                      Go to User Management
+                    </a>
+                  </div>
+                </div>
               </PrivateRoute>
             }
           />
@@ -81,10 +90,10 @@ function App() {
             element={<h3 className="text-center">404 - Page not found</h3>}
           />
         </Routes>
-
       </div>
     </>
   );
 }
 
 export default App;
+

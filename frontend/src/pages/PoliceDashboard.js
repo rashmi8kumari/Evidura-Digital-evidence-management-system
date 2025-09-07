@@ -44,54 +44,58 @@ function PoliceDashboard() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Police Dashboard</h3>
-        <button className="btn btn-primary" onClick={() => setShowAdd(true)}>
-          Add Evidence
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 className="fw-bold text-primary">🚔 Police Dashboard</h3>
+        <button className="btn btn-success fw-semibold" onClick={() => setShowAdd(true)}>
+          + Add Evidence
         </button>
       </div>
 
       {/* Filters */}
-      <div className="card mb-3 p-3">
-        <div className="row g-2">
-          <div className="col-md-4">
-            <input
-              placeholder="Search caseId"
-              className="form-control"
-              value={caseId}
-              onChange={(e) => setCaseId(e.target.value)}
-            />
-          </div>
-          <div className="col-md-3">
-            <select
-              className="form-select"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-            >
-              <option value="">All Status</option>
-              <option value="Seized">Seized</option>
-              <option value="In Transit">In Transit</option>
-              <option value="At FSL">At FSL</option>
-              <option value="Report Ready">Report Ready</option>
-              <option value="In Court">In Court</option>
-            </select>
-          </div>
-          <div className="col-md-2">
-            <button
-              className="btn btn-outline-primary w-100"
-              onClick={() => fetchList(1)}
-            >
-              Filter
-            </button>
+      <div className="card shadow-sm border-0 mb-4">
+        <div className="card-body">
+          <div className="row g-3 align-items-end">
+            <div className="col-md-4">
+              <label className="form-label">Case ID</label>
+              <input
+                placeholder="Search by caseId"
+                className="form-control"
+                value={caseId}
+                onChange={(e) => setCaseId(e.target.value)}
+              />
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">Status</label>
+              <select
+                className="form-select"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="">All</option>
+                <option value="Seized">Seized</option>
+                <option value="In Transit">In Transit</option>
+                <option value="At FSL">At FSL</option>
+                <option value="Report Ready">Report Ready</option>
+                <option value="In Court">In Court</option>
+              </select>
+            </div>
+            <div className="col-md-2">
+              <button
+                className="btn btn-outline-primary w-100 fw-semibold"
+                onClick={() => fetchList(1)}
+              >
+                Apply
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Table */}
-      <div className="card">
+      <div className="card shadow-sm border-0">
         <div className="table-responsive">
-          <table className="table table-hover mb-0">
-            <thead className="table-light">
+          <table className="table table-hover align-middle mb-0">
+            <thead className="table-primary">
               <tr>
                 <th>Case ID</th>
                 <th>Description</th>
@@ -110,10 +114,20 @@ function PoliceDashboard() {
               ) : data.length ? (
                 data.map((ev) => (
                   <tr key={ev._id}>
-                    <td>{ev.caseId}</td>
+                    <td className="fw-semibold">{ev.caseId}</td>
                     <td style={{ maxWidth: 300 }}>{ev.description}</td>
                     <td>
-                      <span className="badge bg-secondary">{ev.status}</span>
+                      <span
+                        className={`badge ${
+                          ev.status === "Seized"
+                            ? "bg-warning text-dark"
+                            : ev.status === "In Court"
+                            ? "bg-success"
+                            : "bg-secondary"
+                        }`}
+                      >
+                        {ev.status}
+                      </span>
                     </td>
                     <td>{ev.currentHolder?.name || "—"}</td>
                     <td>
@@ -125,10 +139,10 @@ function PoliceDashboard() {
                       </Link>
                       {ev.status === "Seized" && (
                         <button
-                          className="btn btn-sm btn-warning"
+                          className="btn btn-sm btn-warning fw-semibold"
                           onClick={() => setTransferItem(ev)}
                         >
-                          Transfer
+                          Transfer ➡️
                         </button>
                       )}
                     </td>
@@ -137,7 +151,7 @@ function PoliceDashboard() {
               ) : (
                 <tr>
                   <td colSpan="5" className="text-center p-4">
-                    No records
+                    No records found
                   </td>
                 </tr>
               )}
@@ -146,23 +160,23 @@ function PoliceDashboard() {
         </div>
 
         <div className="card-footer d-flex justify-content-between align-items-center">
-          <div>
+          <span className="small">
             Page {page} of {pages}
-          </div>
+          </span>
           <div>
             <button
               className="btn btn-sm btn-outline-primary me-2"
               disabled={page <= 1}
               onClick={() => fetchList(page - 1)}
             >
-              Prev
+              ◀ Prev
             </button>
             <button
               className="btn btn-sm btn-outline-primary"
               disabled={page >= pages}
               onClick={() => fetchList(page + 1)}
             >
-              Next
+              Next ▶
             </button>
           </div>
         </div>
@@ -195,12 +209,13 @@ function PoliceDashboard() {
 
 export default PoliceDashboard;
 
-/* AddEvidenceModal - same as before */
+/* AddEvidenceModal */
 function AddEvidenceModal({ show, onHide, onCreated }) {
   const [caseId, setCaseId] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [err, setErr] = React.useState("");
   const [busy, setBusy] = React.useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErr("");
@@ -225,7 +240,7 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
         </Modal.Header>
         <Modal.Body>
           {err && <div className="alert alert-danger">{err}</div>}
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label">Case ID</label>
             <input
               className="form-control"
@@ -234,7 +249,7 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
               required
             />
           </div>
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label">Description</label>
             <textarea
               className="form-control"
@@ -249,7 +264,7 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
           <Button variant="secondary" onClick={onHide} disabled={busy}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" disabled={busy}>
+          <Button variant="success" type="submit" disabled={busy}>
             {busy ? "Creating..." : "Create"}
           </Button>
         </Modal.Footer>
@@ -265,7 +280,7 @@ function TransferModal({ evidence, onHide, onTransferred }) {
   const [loading, setLoading] = React.useState(false);
   const [err, setErr] = React.useState("");
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     const loadUsers = async () => {
       try {
         const res = await api.get("/users?role=fsl");
@@ -288,10 +303,9 @@ function TransferModal({ evidence, onHide, onTransferred }) {
     }
     setLoading(true);
     try {
-      // 🔴 Previously: action: "Sent to FSL"
       await api.post(`/custody/${evidence._id}/transfer`, {
         toUserId: toUser,
-        action: "Transferred"   // ✅ match backend enum
+        action: "Transferred",
       });
       onTransferred();
       alert("Evidence transferred successfully!");
@@ -309,33 +323,47 @@ function TransferModal({ evidence, onHide, onTransferred }) {
           <Modal.Title>Transfer Evidence</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p><strong>Case:</strong> {evidence.caseId}</p>
+          <p>
+            <strong>Case:</strong> {evidence.caseId}
+          </p>
           <p>{evidence.description}</p>
           {err && <div className="alert alert-danger">{err}</div>}
 
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label">Select FSL User</label>
             <select
               className="form-select"
               value={toUser}
-              onChange={e=>setToUser(e.target.value)}
+              onChange={(e) => setToUser(e.target.value)}
               required
               disabled={!users.length}
             >
               {users.length === 0 ? (
                 <option value="">No FSL users found</option>
-              ) : users.map(u=>(
-                <option key={u._id} value={u._id}>{u.name}</option>
-              ))}
+              ) : (
+                users.map((u) => (
+                  <option key={u._id} value={u._id}>
+                    {u.name}
+                  </option>
+                ))
+              )}
             </select>
             {!users.length && (
-              <small className="text-muted">Ask admin to create FSL users.</small>
+              <small className="text-muted">
+                Ask admin to create FSL users.
+              </small>
             )}
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide} disabled={loading}>Cancel</Button>
-          <Button variant="warning" type="submit" disabled={loading || !users.length}>
+          <Button variant="secondary" onClick={onHide} disabled={loading}>
+            Cancel
+          </Button>
+          <Button
+            variant="warning"
+            type="submit"
+            disabled={loading || !users.length}
+          >
             {loading ? "Transferring..." : "Transfer"}
           </Button>
         </Modal.Footer>
@@ -343,3 +371,4 @@ function TransferModal({ evidence, onHide, onTransferred }) {
     </Modal>
   );
 }
+

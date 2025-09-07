@@ -5,6 +5,7 @@ import {
   PieChart, Pie, Cell, Tooltip as ReTooltip, Legend,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from "recharts";
+import { FaDatabase, FaFlask, FaCheckCircle, FaGavel } from "react-icons/fa";
 
 function AdminDashboard() {
   const [summary, setSummary] = useState(null);
@@ -35,52 +36,58 @@ function AdminDashboard() {
     value: count
   }));
 
-  // Pie chart colors
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#a83279"];
 
   return (
     <div className="p-3">
-      <h3>Admin Dashboard</h3>
+      {/* Hero Header */}
+      <div className="bg-primary text-white p-4 rounded shadow-sm mb-4">
+        <h2 className="mb-0">📊 Admin Dashboard</h2>
+        <p className="mb-0">Monitor evidence flow, user roles, and case progress in real time</p>
+      </div>
 
       {/* Summary Cards */}
-      <div className="row g-3 mt-2">
+      <div className="row g-3 text-center">
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm border-0">
+            <FaDatabase size={30} className="text-primary mb-2" />
             <h6>Total Evidence</h6>
             <h2>{summary.total}</h2>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm border-0">
+            <FaFlask size={30} className="text-info mb-2" />
             <h6>At FSL</h6>
             <h2>{summary.byStatus?.["At FSL"] || 0}</h2>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm border-0">
+            <FaCheckCircle size={30} className="text-warning mb-2" />
             <h6>Report Ready</h6>
             <h2>{summary.byStatus?.["Report Ready"] || 0}</h2>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm border-0">
+            <FaGavel size={30} className="text-success mb-2" />
             <h6>In Court</h6>
             <h2>{summary.byStatus?.["In Court"] || 0}</h2>
           </div>
         </div>
       </div>
 
-      {/* Charts */}
+      {/* Charts Section */}
       <div className="row mt-4">
         <div className="col-md-6">
-          <div className="card p-3 shadow-sm">
-            <h6>Evidence by Status</h6>
-            <PieChart width={400} height={300}>
+          <div className="card p-3 shadow-sm border-0">
+            <h6 className="mb-3">Evidence by Status</h6>
+            <PieChart width={450} height={300}>
               <Pie
                 data={statusData}
                 cx="50%"
                 cy="50%"
-                labelLine={false}
                 outerRadius={120}
                 dataKey="value"
                 label
@@ -96,9 +103,9 @@ function AdminDashboard() {
         </div>
 
         <div className="col-md-6">
-          <div className="card p-3 shadow-sm">
-            <h6>Evidence by Holder Role</h6>
-            <BarChart width={400} height={300} data={roleData}>
+          <div className="card p-3 shadow-sm border-0">
+            <h6 className="mb-3">Evidence by Holder Role</h6>
+            <BarChart width={450} height={300} data={roleData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
@@ -111,13 +118,15 @@ function AdminDashboard() {
       </div>
 
       {/* Latest Evidence */}
-      <div className="card mt-4 p-3 shadow-sm">
+      <div className="card mt-4 p-3 shadow-sm border-0">
         <h6>Latest Evidence</h6>
         <ul className="list-group list-group-flush mt-2">
           {summary.latest.map(ev => (
-            <li className="list-group-item" key={ev._id}>
-              <strong>{ev.caseId}</strong> — {ev.description}
-              <span className="badge bg-secondary float-end">{ev.status}</span>
+            <li className="list-group-item d-flex justify-content-between align-items-center" key={ev._id}>
+              <div>
+                <strong>{ev.caseId}</strong> — {ev.description}
+              </div>
+              <span className="badge bg-secondary">{ev.status}</span>
             </li>
           ))}
         </ul>
@@ -127,6 +136,7 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
+
 
 
 
