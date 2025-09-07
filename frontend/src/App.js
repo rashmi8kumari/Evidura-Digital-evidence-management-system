@@ -2,6 +2,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";   // ✅ New Footer
 import PrivateRoute from "./components/PrivateRoute";
 
 import Login from "./pages/Login";
@@ -13,17 +14,23 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserManagement from "./pages/UserManagement";
 import EvidenceDetails from "./pages/EvidenceDetails";
 
-// 🔹 New pages
+// 🔹 General pages
 import About from "./pages/About";
 import Community from "./pages/Community";
 import UserGuide from "./pages/UserGuide";
 import ModuleWriterGuide from "./pages/ModuleWriterGuide";
 
+// 🔹 Footer linked pages
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Contact from "./pages/Contact";
+
 function App() {
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      <div className="container my-4">
+
+      <div className="container my-4 flex-grow-1">
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
@@ -33,10 +40,12 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/community" element={<Community />} />
           <Route path="/community/user-guide" element={<UserGuide />} />
-          <Route
-            path="/community/module-writer"
-            element={<ModuleWriterGuide />}
-          />
+          <Route path="/community/module-writer" element={<ModuleWriterGuide />} />
+
+          {/* Footer Pages */}
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/contact" element={<Contact />} />
 
           {/* Protected routes */}
           <Route
@@ -107,10 +116,13 @@ function App() {
           />
         </Routes>
       </div>
-    </>
+
+      <Footer /> {/* ✅ Sticky Footer */}
+    </div>
   );
 }
 
 export default App;
+
 
 
