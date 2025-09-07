@@ -42,7 +42,7 @@ function AdminDashboard() {
     <div className="p-3">
       {/* Hero Header */}
       <div className="bg-primary text-white p-4 rounded shadow-sm mb-4">
-        <h2 className="mb-0">📊 Admin Dashboard</h2>
+        <h2 className="mb-0"> Admin Dashboard</h2>
         <p className="mb-0">Monitor evidence flow, user roles, and case progress in real time</p>
       </div>
 
