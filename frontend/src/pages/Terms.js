@@ -1,16 +1,26 @@
 import React from "react";
 
 const Terms = () => {
+  const cardStyle = {
+    backgroundColor: "#2f2f2f", // dark grey
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "12px",
+    maxWidth: "800px",
+    margin: "20px auto",
+    padding: "30px"
+  };
+
   return (
-    <div className="container my-5">
-      <h1 className="text-center mb-4 fw-bold">Terms of Use</h1>
-      <p className="text-muted text-center">
+    <div className="card shadow" style={cardStyle}>
+      <h1 className="text-center mb-4 fw-bold text-primary">Terms of Use</h1>
+      <p className="text-center text-light">
         WEBSITE / SERVICES TERMS OF USE
       </p>
 
       <section className="mt-4">
         <p>
-          This page states the Terms of Use for the <strong>Evidence Tracker</strong> 
+          This page states the Terms of Use for the <strong>Evidura </strong> 
           website (the “Website”) and the services available through the Website 
           (collectively, the “Services”). By using this Website and/or the Services, 
           you signify that you have read, understood, and agree to be bound by these 
@@ -24,8 +34,8 @@ const Terms = () => {
         <p>
           The Website enables access to features such as case management, 
           digital evidence tracking, role-based dashboards, and other resources. 
-          We will make reasonable efforts to provide uninterrupted access to the Website, 
-          however, access may be suspended, restricted, or terminated at any time 
+          We make reasonable efforts to provide uninterrupted access to the Website, 
+          but access may be suspended, restricted, or terminated at any time 
           without notice.
         </p>
       </section>
@@ -43,10 +53,9 @@ const Terms = () => {
       <section className="mt-4">
         <h4>Intellectual Property</h4>
         <p>
-          All content, trademarks, logos, and software associated with the Evidence Tracker 
-          project are owned or licensed by their respective creators. You may not copy, 
-          reproduce, or redistribute any part of the Website or Services without prior 
-          written consent.
+          All content, trademarks, logos, and software associated with Evidura 
+          are owned or licensed by their respective creators. You may not copy, reproduce, 
+          or redistribute any part of the Website or Services without prior written consent.
         </p>
       </section>
 
@@ -54,9 +63,8 @@ const Terms = () => {
         <h4>Privacy & Data</h4>
         <p>
           We value user privacy. Data such as login details, evidence metadata, 
-          and case records are protected. However, by using the Services, 
-          you agree that necessary logs (IP address, device type, timestamps) 
-          may be collected for security and auditing purposes.
+          and case records are protected. By using the Services, you agree that necessary 
+          logs (IP address, device type, timestamps) may be collected for security and auditing purposes.
         </p>
       </section>
 
@@ -65,8 +73,7 @@ const Terms = () => {
         <p>
           The Website and Services are provided "as is" and "as available". 
           Evidence Tracker and its contributors are not responsible for any 
-          direct, indirect, or consequential damages that may arise from 
-          using the Website or Services.
+          direct, indirect, or consequential damages arising from use of the Website or Services.
         </p>
       </section>
 
@@ -74,20 +81,19 @@ const Terms = () => {
         <h4>Changes</h4>
         <p>
           We reserve the right to update or modify these Terms of Use at any time. 
-          Your continued use of the Website after changes are posted will mean 
-          you accept those changes.
+          Continued use of the Website after changes are posted indicates your acceptance 
+          of those changes.
         </p>
       </section>
 
       <section className="mt-4">
         <h4>Contact</h4>
         <p>
-          If you have any questions about these Terms, please contact us 
-          at <strong>support@evidura.in</strong>.
+          For any questions about these Terms, please contact us at <strong>support@evidura.com</strong>.
         </p>
       </section>
 
-      <p className="text-muted mt-5">
+      <p className="text-light mt-5 text-center">
         Last Updated: September 7, 2025
       </p>
     </div>
@@ -95,3 +101,4 @@ const Terms = () => {
 };
 
 export default Terms;
+

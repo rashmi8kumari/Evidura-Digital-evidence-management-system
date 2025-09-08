@@ -28,18 +28,21 @@ function Login() {
   };
 
   return (
-    <div className="d-flex vh-100 justify-content-center align-items-center bg-gradient">
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "100vh" }} // full screen height for perfect centering
+    >
       <div
         className="card shadow-lg border-0 p-4"
         style={{
           width: 420,
           borderRadius: "12px",
-          background: "rgba(255,255,255,0.9)",
-          backdropFilter: "blur(10px)",
+          backgroundColor: "#2f2f2f",
+          color: "#fff",
         }}
       >
-        <h3 className="mb-3 text-center fw-bold text-primary">🔐 Sign In</h3>
-        <p className="text-muted text-center mb-4">
+        <h3 className="mb-3 text-center fw-bold text-info">Sign In</h3>
+        <p className="text-center mb-4" style={{ color: "#ffffff" }}>
           Enter your credentials to access the system
         </p>
 
@@ -49,37 +52,48 @@ function Login() {
           <div className="form-floating mb-3">
             <input
               type="email"
-              className="form-control"
+              className="form-control bg-dark text-light border-0"
               id="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label htmlFor="email">Email address</label>
+            <label htmlFor="email" className="text-secondary">
+              Email address
+            </label>
           </div>
 
           <div className="form-floating mb-3">
             <input
               type="password"
-              className="form-control"
+              className="form-control bg-dark text-light border-0"
               id="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-secondary">
+              Password
+            </label>
           </div>
 
-          <button className="btn btn-primary w-100 py-2 fw-bold" type="submit">
+          <button
+            className="btn btn-info w-100 py-2 fw-bold text-dark"
+            type="submit"
+          >
             Login
           </button>
         </form>
 
         <p className="text-center mt-3 mb-0">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-decoration-none fw-semibold">
+          <Link
+            to="/register"
+            className="fw-semibold"
+            style={{ color: "#0dcaf0", textDecoration: "none" }}
+          >
             Register here
           </Link>
         </p>
@@ -89,6 +103,9 @@ function Login() {
 }
 
 export default Login;
+
+
+
 
 
 

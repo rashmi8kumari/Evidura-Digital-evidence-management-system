@@ -21,7 +21,7 @@ const ContactUs = () => {
       const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form), // ✅ yaha form bhejna hai
+        body: JSON.stringify(form),
       });
 
       const data = await response.json();
@@ -40,8 +40,16 @@ const ContactUs = () => {
         alert("⚠️ " + data.error);
       }
     } catch (error) {
-      alert("❌ Failed to send message.");
+      alert(" Failed to send message.");
     }
+  };
+
+  // Dark theme card style
+  const cardStyle = {
+    backgroundColor: "#2f2f2f", // dark grey
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "12px",
   };
 
   return (
@@ -107,7 +115,7 @@ const ContactUs = () => {
 
           {/* Right Side - Form */}
           <div className="col-md-7">
-            <div className="card p-4 shadow-lg" style={{ borderRadius: "12px" }}>
+            <div className="card p-4 shadow-lg" style={cardStyle}>
               <form onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6 mb-3">
@@ -201,5 +209,6 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getRole, clearAuth } from "../utils/auth";
 import { FaBars } from "react-icons/fa";
-import * as bootstrap from "bootstrap"; // ✅ bootstrap instance import
+import * as bootstrap from "bootstrap"; //bootstrap instance import
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Navbar = () => {
   return (
     <>
       {/* Top Navbar */}
-      <nav className="navbar navbar-dark bg-dark shadow-sm">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow sticky-top">
         <div className="container-fluid">
           <button
             className="btn btn-outline-light me-2"
@@ -36,9 +36,18 @@ const Navbar = () => {
           >
             <FaBars />
           </button>
-          <Link className="navbar-brand fw-bold" to="/">
-            Evidence Tracker
+          <Link
+            className="navbar-brand fw-bold"
+            to="/"
+            style={{
+              fontSize: "1.8rem", // bigger font
+              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", // better font
+              letterSpacing: "1px", // optional: for style
+            }}
+          >
+            EVIDURA
           </Link>
+
           {role && (
             <div className="d-flex align-items-center">
               <span className="text-light me-3">
@@ -74,15 +83,14 @@ const Navbar = () => {
 
         <div className="offcanvas-body">
           <ul className="nav flex-column">
-
             {/* General Pages */}
             <li className="nav-item mb-2">
               <Link
                 className="nav-link text-white"
                 to="/about"
-                onClick={closeSidebar}   // Sidebar close
+                onClick={closeSidebar} // Sidebar close
               >
-                 About
+                About
               </Link>
             </li>
             <li className="nav-item mb-2">
@@ -91,7 +99,7 @@ const Navbar = () => {
                 to="/community"
                 onClick={closeSidebar}
               >
-                 Community Support
+                Community Support
               </Link>
               <ul className="ms-3 mt-1">
                 <li>
@@ -100,7 +108,7 @@ const Navbar = () => {
                     to="/community/user-guide"
                     onClick={closeSidebar}
                   >
-                     User Guide
+                    User Guide
                   </Link>
                 </li>
                 <li>
@@ -109,7 +117,7 @@ const Navbar = () => {
                     to="/community/module-writer"
                     onClick={closeSidebar}
                   >
-                     Module Writer Guide
+                    Module Writer Guide
                   </Link>
                 </li>
               </ul>
@@ -147,7 +155,7 @@ const Navbar = () => {
                   to="/police-dashboard"
                   onClick={closeSidebar}
                 >
-                   Police Dashboard
+                  Police Dashboard
                 </Link>
               </li>
             )}
@@ -159,7 +167,7 @@ const Navbar = () => {
                   to="/fsl-dashboard"
                   onClick={closeSidebar}
                 >
-                   FSL Dashboard
+                  FSL Dashboard
                 </Link>
               </li>
             )}
@@ -184,7 +192,7 @@ const Navbar = () => {
                     to="/admin-dashboard"
                     onClick={closeSidebar}
                   >
-                     Admin Dashboard
+                    Admin Dashboard
                   </Link>
                 </li>
                 <li className="nav-item mb-2">
@@ -206,13 +214,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-

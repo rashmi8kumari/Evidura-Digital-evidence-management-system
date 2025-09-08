@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-dark text-light py-3 mt-auto fixed-bottom shadow-sm">
       <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-        <span>© 2025 EVIDENCE TRACKER ALL RIGHTS RESERVED.</span>
+        <span>© 2025 EVIDURA ALL RIGHTS RESERVED.</span>
         <div>
           <Link to="/terms" className="text-decoration-none text-light me-3">
             Terms of Use

@@ -38,14 +38,21 @@ function CourtDashboard() {
     }
   };
 
+  // 🔹 Dark card + table style
+  const cardStyle = {
+    backgroundColor: "#2f2f2f",
+    color: "#ffffff",
+    border: "none",
+  };
+
   return (
     <div className="p-3">
-      <h3 className="mb-4">Court Dashboard</h3>
+      <h3 className="mb-4 text-black">Court Dashboard</h3>
 
-      <div className="card shadow-sm">
+      <div className="card shadow-sm" style={cardStyle}>
         <div className="card-body table-responsive">
-          <table className="table table-hover align-middle">
-            <thead className="table-dark">
+          <table className="table table-hover align-middle mb-0 text-white">
+            <thead style={{ backgroundColor: "#1c1c1c" }}>
               <tr>
                 <th>Case ID</th>
                 <th>Description</th>
@@ -57,7 +64,7 @@ function CourtDashboard() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="5" className="text-center p-4">
+                  <td colSpan="5" className="text-center p-4 text-muted">
                     Loading records...
                   </td>
                 </tr>
@@ -65,7 +72,7 @@ function CourtDashboard() {
                 data.map((ev) => (
                   <tr key={ev._id}>
                     <td>
-                      <span className="fw-bold">{ev.caseId}</span>
+                      <span className="fw-bold text-info">{ev.caseId}</span>
                     </td>
                     <td>{ev.description}</td>
                     <td>
@@ -82,7 +89,7 @@ function CourtDashboard() {
                     <td>{ev.currentHolder?.name || "—"}</td>
                     <td className="text-center">
                       <Link
-                        className="btn btn-sm btn-outline-primary me-2"
+                        className="btn btn-sm btn-outline-info me-2"
                         to={`/evidence/${ev._id}`}
                       >
                         View
@@ -123,6 +130,7 @@ function CourtDashboard() {
 }
 
 export default CourtDashboard;
+
 
 
 

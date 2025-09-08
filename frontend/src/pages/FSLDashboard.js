@@ -48,34 +48,41 @@ function FSLDashboard() {
     }
   };
 
+  // 🔹 Dark card style
+  const cardStyle = {
+    backgroundColor: "#2f2f2f",
+    color: "#ffffff",
+    border: "none",
+  };
+
   return (
     <div className="p-3">
-      <h3 className="mb-4"> FSL Dashboard</h3>
+      <h3 className="mb-4 text-black">FSL Dashboard</h3>
 
-      <div className="card shadow-sm">
+      <div className="card shadow-sm" style={cardStyle}>
         <div className="card-body">
           <div className="table-responsive">
             <table className="table table-hover align-middle mb-0">
-              <thead className="table-light">
+              <thead style={{ backgroundColor: "#1f1f1f", color: "#fff" }}>
                 <tr>
                   <th>Case ID</th>
                   <th>Description</th>
                   <th>Status</th>
                   <th>Current Holder</th>
-                  <th>Actions</th>
+                  <th className="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="5" className="text-center p-4">
+                    <td colSpan="5" className="text-center p-4 text-light">
                       Loading evidence...
                     </td>
                   </tr>
                 ) : data.length ? (
                   data.map((ev) => (
-                    <tr key={ev._id}>
-                      <td className="fw-bold">{ev.caseId}</td>
+                    <tr key={ev._id} style={{ color: "#ddd" }}>
+                      <td className="fw-bold text-info">{ev.caseId}</td>
                       <td>{ev.description}</td>
                       <td>
                         <span
@@ -93,9 +100,9 @@ function FSLDashboard() {
                         </span>
                       </td>
                       <td>{ev.currentHolder?.name || "—"}</td>
-                      <td>
+                      <td className="text-center">
                         <Link
-                          className="btn btn-sm btn-outline-primary me-2"
+                          className="btn btn-sm btn-outline-info me-2"
                           to={`/evidence/${ev._id}`}
                         >
                           View
@@ -111,7 +118,7 @@ function FSLDashboard() {
                           </button>
                         )}
 
-                        {/*  Mark Report Ready */}
+                        {/* Mark Report Ready */}
                         {ev.status === "At FSL" && (
                           <button
                             className="btn btn-sm btn-warning me-2"
@@ -142,7 +149,11 @@ function FSLDashboard() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="text-center p-4 text-muted">
+                    <td
+                      colSpan="5"
+                      className="text-center p-4"
+                      style={{ color: "#aaa" }}
+                    >
                       No records found
                     </td>
                   </tr>
@@ -157,6 +168,7 @@ function FSLDashboard() {
 }
 
 export default FSLDashboard;
+
 
 
 

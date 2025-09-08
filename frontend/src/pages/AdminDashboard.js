@@ -22,55 +22,60 @@ function AdminDashboard() {
 
   useEffect(() => { fetch(); }, []);
 
-  if (!summary) return <div className="p-4">Loading...</div>;
+  if (!summary) return <div className="p-4 text-white">Loading...</div>;
 
-  // ✅ Prepare pie chart data (status counts)
   const statusData = Object.entries(summary.byStatus || {}).map(([status, count]) => ({
     name: status,
     value: count
   }));
 
-  // ✅ Prepare bar chart data (holder role counts)
   const roleData = Object.entries(summary.byHolderRole || {}).map(([role, count]) => ({
     name: role,
     value: count
   }));
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#a83279"];
+  const COLORS = ["#2c77c2ff", "#00C49F", "#FFBB28", "#FF8042", "#a83279"];
+
+  // Common card style
+  const cardStyle = {
+    backgroundColor: "#2f2f2f", // dark grey
+    color: "#ffffff",
+    border: "none"
+  };
 
   return (
     <div className="p-3">
       {/* Hero Header */}
-      <div className="bg-primary text-white p-4 rounded shadow-sm mb-4">
-        <h2 className="mb-0"> Admin Dashboard</h2>
+      <div className="p-4 rounded shadow-sm mb-4" style={{ backgroundColor: "#3a3a3a", color: "#fff" }}>
+        <h2 className="mb-0">Admin Dashboard</h2>
         <p className="mb-0">Monitor evidence flow, user roles, and case progress in real time</p>
       </div>
 
       {/* Summary Cards */}
       <div className="row g-3 text-center">
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm border-0">
+          <div className="card p-3 shadow-sm" style={cardStyle}>
             <FaDatabase size={30} className="text-primary mb-2" />
             <h6>Total Evidence</h6>
             <h2>{summary.total}</h2>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm border-0">
+          <div className="card p-3 shadow-sm" style={cardStyle}>
             <FaFlask size={30} className="text-info mb-2" />
             <h6>At FSL</h6>
             <h2>{summary.byStatus?.["At FSL"] || 0}</h2>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm border-0">
+          <div className="card-primary p-3 shadow-sm" style={cardStyle}>
             <FaCheckCircle size={30} className="text-warning mb-2" />
             <h6>Report Ready</h6>
             <h2>{summary.byStatus?.["Report Ready"] || 0}</h2>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm border-0">
+          <div className="card p-3 shadow-sm" style={cardStyle}>
             <FaGavel size={30} className="text-success mb-2" />
             <h6>In Court</h6>
             <h2>{summary.byStatus?.["In Court"] || 0}</h2>
@@ -81,7 +86,7 @@ function AdminDashboard() {
       {/* Charts Section */}
       <div className="row mt-4">
         <div className="col-md-6">
-          <div className="card p-3 shadow-sm border-0">
+          <div className="card p-3 shadow-sm" style={cardStyle}>
             <h6 className="mb-3">Evidence by Status</h6>
             <PieChart width={450} height={300}>
               <Pie
@@ -103,12 +108,12 @@ function AdminDashboard() {
         </div>
 
         <div className="col-md-6">
-          <div className="card p-3 shadow-sm border-0">
+          <div className="card p-3 shadow-sm" style={cardStyle}>
             <h6 className="mb-3">Evidence by Holder Role</h6>
             <BarChart width={450} height={300} data={roleData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" stroke="#555" />
+              <XAxis dataKey="name" stroke="#fff" />
+              <YAxis stroke="#fff" />
               <ReTooltip />
               <Legend />
               <Bar dataKey="value" fill="#8884d8" />
@@ -118,11 +123,15 @@ function AdminDashboard() {
       </div>
 
       {/* Latest Evidence */}
-      <div className="card mt-4 p-3 shadow-sm border-0">
+      <div className="card mt-4 p-3 shadow-sm" style={cardStyle}>
         <h6>Latest Evidence</h6>
         <ul className="list-group list-group-flush mt-2">
           {summary.latest.map(ev => (
-            <li className="list-group-item d-flex justify-content-between align-items-center" key={ev._id}>
+            <li
+              className="list-group-item d-flex justify-content-between align-items-center"
+              key={ev._id}
+              style={{ backgroundColor: "#3a3a3a", color: "#fff" }}
+            >
               <div>
                 <strong>{ev.caseId}</strong> — {ev.description}
               </div>
@@ -136,6 +145,8 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
+
+
 
 
 

@@ -38,7 +38,7 @@ function UserManagement() {
     try {
       await api.post("/admin/users", form);
       setForm({ name: "", email: "", role: "police", password: "" });
-      setOk("✅ User added successfully");
+      setOk("User added successfully");
       fetchUsers();
     } catch (err) {
       setErr(err.response?.data?.msg || "Add failed");
@@ -64,14 +64,20 @@ function UserManagement() {
     }
   };
 
+  const cardStyle = {
+    backgroundColor: "#2f2f2f", // dark grey
+    color: "#ffffff",
+    border: "none"
+  };
+
   return (
-    <div>
-      <h3 className="mb-3">User Management</h3>
+    <div className="p-3">
+      <h3 className="mb-3 text-white">User Management</h3>
 
       {/* Add User Form */}
-      <div className="card shadow-sm mb-4">
+      <div className="card shadow-sm mb-4" style={cardStyle}>
         <div className="card-body">
-          <h5 className="card-title mb-3">Add New User</h5>
+          <h5 className="card-title mb-3 text-white">Add New User</h5>
 
           {err && <div className="alert alert-danger">{err}</div>}
           {ok && <div className="alert alert-success">{ok}</div>}
@@ -156,10 +162,10 @@ function UserManagement() {
       </div>
 
       {/* Users Table */}
-      <div className="card shadow-sm">
+      <div className="card shadow-sm" style={cardStyle}>
         <div className="table-responsive">
-          <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
+          <table className="table table-hover align-middle mb-0 text-white">
+            <thead style={{ backgroundColor: "#3a3a3a" }}>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -216,6 +222,8 @@ function UserManagement() {
 }
 
 export default UserManagement;
+
+
 
 
 

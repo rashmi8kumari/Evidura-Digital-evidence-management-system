@@ -27,18 +27,26 @@ function EvidenceDetails() {
     fetch();
   }, [id]);
 
-  if (loading) return <div className="p-4">Loading evidence details...</div>;
+  if (loading)
+    return <div className="p-4 text-white">Loading evidence details...</div>;
   if (!item) return <div className="p-4 text-muted">No evidence found</div>;
+
+  // 🔹 Dark card style
+  const cardStyle = {
+    backgroundColor: "#2f2f2f",
+    color: "#ffffff",
+    border: "none",
+  };
 
   return (
     <div className="p-3">
-      <h3 className="mb-4"> Evidence Details</h3>
+      <h3 className="mb-4 text-black">Evidence Details</h3>
 
       {/* Evidence Info Card */}
-      <div className="card shadow-sm mb-4">
+      <div className="card shadow-sm mb-4" style={cardStyle}>
         <div className="card-body">
-          <h4 className="card-title">{item.caseId}</h4>
-          <p className="card-text text-muted">{item.description}</p>
+          <h4 className="card-title text-info">{item.caseId}</h4>
+          <p className="card-text">{item.description}</p>
 
           <div className="mb-2">
             <span className="fw-bold">Status:</span>{" "}
@@ -71,22 +79,23 @@ function EvidenceDetails() {
       </div>
 
       {/* Custody Timeline */}
-      <div className="card shadow-sm">
+      <div className="card shadow-sm" style={cardStyle}>
         <div className="card-body">
-          <h5 className="card-title"> Custody Timeline</h5>
+          <h5 className="card-title text-warning">Custody Timeline</h5>
           <ul className="list-group list-group-flush mt-2">
             {logs.length ? (
               logs.map((l) => (
                 <li
                   className="list-group-item d-flex justify-content-between align-items-start"
                   key={l._id}
+                  style={{ backgroundColor: "#2f2f2f", color: "#fff" }} // dark bg + white text
                 >
                   <div>
-                    <div className="fw-bold">{l.action}</div>
-                    <small className="text-muted">
+                    <div className="fw-bold text-white">{l.action}</div>
+                    <small style={{ color: "#ddd" }}>
                       {new Date(l.timestamp).toLocaleString()}
                     </small>
-                    <div className="text-muted small">
+                    <div style={{ color: "#ccc", fontSize: "0.85rem" }}>
                       From: {l.fromUser?.name || "—"} → To:{" "}
                       {l.toUser?.name || "—"}
                     </div>
@@ -94,7 +103,10 @@ function EvidenceDetails() {
                 </li>
               ))
             ) : (
-              <li className="list-group-item text-muted">
+              <li
+                className="list-group-item"
+                style={{ backgroundColor: "#2f2f2f", color: "#ccc" }}
+              >
                 No custody logs available
               </li>
             )}
@@ -106,4 +118,3 @@ function EvidenceDetails() {
 }
 
 export default EvidenceDetails;
-

@@ -27,10 +27,20 @@ import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div
+      style={{
+        backgroundImage: "url('/images/background.jpg')", // ✅ Place image in public/images/
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Navbar />
 
-      <div className="container my-4 flex-grow-1">
+      <div className="container my-4 flex-grow-1" style={{ background: "transparent" }}>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
@@ -112,17 +122,18 @@ function App() {
           {/* fallback */}
           <Route
             path="*"
-            element={<h3 className="text-center">404 - Page not found</h3>}
+            element={<h3 className="text-center text-white">404 - Page not found</h3>}
           />
         </Routes>
       </div>
 
-      <Footer /> {/* ✅ Sticky Footer */}
+      <Footer /> {/* Sticky Footer */}
     </div>
   );
 }
 
 export default App;
+
 
 
 

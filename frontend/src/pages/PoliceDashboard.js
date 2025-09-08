@@ -44,17 +44,21 @@ function PoliceDashboard() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="fw-bold text-primary">🚔 Police Dashboard</h3>
-        <button className="btn btn-success fw-semibold" onClick={() => setShowAdd(true)}>
+      {/* Heading + Button */}
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h3 className="fw-bold text-dark">Police Dashboard</h3>
+        <button
+          className="btn btn-success fw-semibold"
+          onClick={() => setShowAdd(true)}
+        >
           + Add Evidence
         </button>
       </div>
 
       {/* Filters */}
-      <div className="card shadow-sm border-0 mb-4">
-        <div className="card-body">
-          <div className="row g-3 align-items-end">
+      <div className="card shadow-sm border-0 mb-3">
+        <div className="card-body py-3">
+          <div className="row g-2 align-items-end">
             <div className="col-md-4">
               <label className="form-label">Case ID</label>
               <input
@@ -90,12 +94,11 @@ function PoliceDashboard() {
           </div>
         </div>
       </div>
-
-      {/* Table */}
-      <div className="card shadow-sm border-0">
-        <div className="table-responsive">
+  {/* Evidence Table */}
+      <div className="card shadow-sm border-0 mb-4">
+        <div className="table-responsive" style={{ maxHeight: "450px" }}>
           <table className="table table-hover align-middle mb-0">
-            <thead className="table-primary">
+            <thead className="table-secondary">
               <tr>
                 <th>Case ID</th>
                 <th>Description</th>
@@ -115,7 +118,7 @@ function PoliceDashboard() {
                 data.map((ev) => (
                   <tr key={ev._id}>
                     <td className="fw-semibold">{ev.caseId}</td>
-                    <td style={{ maxWidth: 300 }}>{ev.description}</td>
+                    <td style={{ maxWidth: 280 }}>{ev.description}</td>
                     <td>
                       <span
                         className={`badge ${
@@ -142,7 +145,7 @@ function PoliceDashboard() {
                           className="btn btn-sm btn-warning fw-semibold"
                           onClick={() => setTransferItem(ev)}
                         >
-                          Transfer ➡️
+                          Transfer 
                         </button>
                       )}
                     </td>
@@ -159,7 +162,7 @@ function PoliceDashboard() {
           </table>
         </div>
 
-        <div className="card-footer d-flex justify-content-between align-items-center">
+        <div className="card-footer d-flex justify-content-between align-items-center p-2">
           <span className="small">
             Page {page} of {pages}
           </span>
@@ -238,9 +241,9 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
         <Modal.Header closeButton>
           <Modal.Title>Add New Evidence</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="pt-2">
           {err && <div className="alert alert-danger">{err}</div>}
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label">Case ID</label>
             <input
               className="form-control"
@@ -249,13 +252,13 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
               required
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label">Description</label>
             <textarea
               className="form-control"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              rows={4}
+              rows={3}
               required
             />
           </div>
@@ -273,7 +276,7 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
   );
 }
 
-/* TransferModal */
+/* TransferModal remains same */
 function TransferModal({ evidence, onHide, onTransferred }) {
   const [users, setUsers] = React.useState([]);
   const [toUser, setToUser] = React.useState("");
@@ -371,4 +374,3 @@ function TransferModal({ evidence, onHide, onTransferred }) {
     </Modal>
   );
 }
-

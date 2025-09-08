@@ -1,6 +1,6 @@
 // src/pages/Register.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { api } from "../utils/auth";
 
 const roles = [
@@ -29,7 +29,7 @@ function Register() {
     setOk("");
     try {
       await api.post("/auth/register", form);
-      setOk("✅ Registration successful! Redirecting to login...");
+      setOk("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
       setErr(error.response?.data?.msg || "Registration failed");
@@ -37,13 +37,25 @@ function Register() {
   };
 
   return (
-    <div className="d-flex vh-100 justify-content-center align-items-center bg-light">
-      <div className="card shadow-lg p-4 rounded-4" style={{ width: 460 }}>
-        <h3 className="mb-3 text-center text-success fw-bold">
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <div
+        className="card shadow-lg border-0 p-4"
+        style={{
+          width: "100%",
+          maxWidth: "340px", // aur chhota box
+          borderRadius: "12px",
+          backgroundColor: "#3a3a3a", // grey background
+          color: "#fff",
+        }}
+      >
+        <h4 className="mb-3 text-center fw-bold text-success">
           Create an Account
-        </h3>
-        <p className="text-center text-muted mb-4">
-          Fill in the details below to register
+        </h4>
+        <p className="text-center mb-4" style={{ color: "#e0e0e0" }}>
+          Fill in the details to register
         </p>
 
         {err && <div className="alert alert-danger">{err}</div>}
@@ -53,48 +65,54 @@ function Register() {
           <div className="form-floating mb-3">
             <input
               name="name"
-              className="form-control"
+              className="form-control bg-dark text-light border-0"
               id="name"
               placeholder="Full Name"
               value={form.name}
               onChange={onChange}
               required
             />
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name" className="text-secondary">
+              Full Name
+            </label>
           </div>
 
           <div className="form-floating mb-3">
             <input
               name="email"
               type="email"
-              className="form-control"
+              className="form-control bg-dark text-light border-0"
               id="email"
               placeholder="Email"
               value={form.email}
               onChange={onChange}
               required
             />
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="text-secondary">
+              Email
+            </label>
           </div>
 
           <div className="form-floating mb-3">
             <input
               name="password"
               type="password"
-              className="form-control"
+              className="form-control bg-dark text-light border-0"
               id="password"
               placeholder="Password"
               value={form.password}
               onChange={onChange}
               required
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-secondary">
+              Password
+            </label>
           </div>
 
           <div className="form-floating mb-4">
             <select
               name="role"
-              className="form-select"
+              className="form-select bg-dark text-light border-0"
               id="role"
               value={form.role}
               onChange={onChange}
@@ -105,19 +123,28 @@ function Register() {
                 </option>
               ))}
             </select>
-            <label htmlFor="role">Select Role</label>
+            <label htmlFor="role" className="text-secondary">
+              Select Role
+            </label>
           </div>
 
-          <button className="btn btn-success w-100 fw-semibold" type="submit">
+          <button
+            className="btn btn-success w-100 fw-semibold py-2"
+            type="submit"
+          >
             Register
           </button>
         </form>
 
         <p className="text-center mt-3 mb-0">
           Already have an account?{" "}
-          <a href="/login" className="text-decoration-none fw-semibold">
+          <Link
+            to="/login"
+            className="fw-semibold"
+            style={{ color: "#0dcaf0", textDecoration: "none" }}
+          >
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>
@@ -125,6 +152,10 @@ function Register() {
 }
 
 export default Register;
+
+
+
+
 
 
 
