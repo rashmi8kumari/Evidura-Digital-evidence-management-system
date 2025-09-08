@@ -15,9 +15,33 @@ const ContactUs = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Form submitted! (Backend integration pending)");
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form), // ✅ yaha form bhejna hai
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("✅ Message sent successfully!");
+        setForm({
+          firstName: "",
+          lastName: "",
+          jobTitle: "",
+          organization: "",
+          email: "",
+          country: "",
+          message: "",
+        });
+      } else {
+        alert("⚠️ " + data.error);
+      }
+    } catch (error) {
+      alert("❌ Failed to send message.");
+    }
   };
 
   return (
@@ -41,7 +65,7 @@ const ContactUs = () => {
             </p>
             <p>
               <a
-                href="https://goo.gl/maps/8vH3dLw2k1k"
+                href="https://www.google.com/maps/place/Vijay+Nagar,+Indore,+Madhya+Pradesh/"
                 target="_blank"
                 rel="noreferrer"
                 className="text-info text-decoration-none"
@@ -53,14 +77,14 @@ const ContactUs = () => {
             <p>
               <strong>Phone:</strong>{" "}
               <a
-                href="tel:+917312345678"
+                href="tel:+917974193567"
                 className="text-info text-decoration-none"
               >
                 +91-797-419-3567 , +91-722-302-2165
               </a>
             </p>
             <a
-              href="https://www.google.com/maps/place/Vijay+Nagar,+Indore,+Madhya+Pradesh/"
+              href="https://www.google.com/maps/dir//Vijay+Nagar,+Indore,+Madhya+Pradesh/"
               target="_blank"
               rel="noreferrer"
               className="btn btn-outline-light mb-4"
@@ -72,7 +96,7 @@ const ContactUs = () => {
             <p>
               Email:{" "}
               <a
-                href="mailto:info@evidencetracker.com"
+                href="mailto:info@evidura.in"
                 className="text-info text-decoration-none"
               >
                 info@evidura.in
@@ -177,4 +201,5 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
 
