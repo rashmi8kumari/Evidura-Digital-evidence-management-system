@@ -2,7 +2,7 @@ import Evidence from "../models/Evidence.js";
 import CustodyLog from "../models/CustodyLog.js";
 import User from "../models/User.js";   // for recipient validation
 
-// ----------------- 🔹 TRANSFER EVIDENCE -----------------
+// ----------------- TRANSFER EVIDENCE -----------------
 export const transferEvidence = async (req, res) => {
   try {
     let { toUserId, action } = req.body; // let (reassign allowed)
@@ -15,18 +15,18 @@ export const transferEvidence = async (req, res) => {
       });
     }
 
-    // 🔹 Find evidence
+    // Find evidence
     const evidence = await Evidence.findById(req.params.id);
     if (!evidence) {
       return res.status(404).json({ msg: "Evidence not found." });
     }
 
-    // 🔹 Auto-assign recipient for certain actions
+    // Auto-assign recipient for certain actions
     if (action === "Received" || action === "Report Ready") {
       toUserId = req.user.id; // current user himself
     }
 
-    // 🔹 Validate recipient
+    // Validate recipient
     const toUser = await User.findById(toUserId);
     if (!toUser) {
       return res.status(404).json({ msg: "Recipient user not found." });
@@ -57,7 +57,7 @@ export const transferEvidence = async (req, res) => {
 
       case "Transferred":
         if (toUser.role === "court") {
-          newStatus = "In Court";  // ✅ direct In Court
+          newStatus = "In Court";  // direct In Court
         } else {
           newStatus = "In Transit";
         }
@@ -66,7 +66,7 @@ export const transferEvidence = async (req, res) => {
       case "Received":
         if (req.user.role === "police") newStatus = "Seized";
         if (req.user.role === "fsl") newStatus = "At FSL";
-        if (req.user.role === "court") newStatus = "In Court";  // ✅ ensure final
+        if (req.user.role === "court") newStatus = "In Court";  // ensure final
         break;
 
       case "Report Ready":
@@ -77,12 +77,12 @@ export const transferEvidence = async (req, res) => {
         newStatus = evidence.status;
     }
 
-    // 🔹 Update Evidence
+    // Update Evidence
     evidence.currentHolder = toUserId;
     evidence.status = newStatus;
     await evidence.save();
 
-    // 🔹 Log custody
+    // Log custody
     const log = new CustodyLog({
       evidenceId: evidence._id,
       fromUser: req.user.id,
@@ -97,7 +97,7 @@ export const transferEvidence = async (req, res) => {
   }
 };
 
-// ----------------- 🔹 GET CUSTODY LOGS -----------------
+// ----------------- GET CUSTODY LOGS -----------------
 export const getCustodyLogs = async (req, res) => {
   try {
     const logs = await CustodyLog.find({ evidenceId: req.params.id })
