@@ -8,6 +8,7 @@ import evidenceRoutes from "./routes/evidenceRoutes.js";
 import custodyRoutes from "./routes/custodyRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use("/api/evidence", evidenceRoutes);
 app.use("/api/custody", custodyRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Connect DB & Start Server
 connectDB().then(() => {
