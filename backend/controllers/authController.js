@@ -7,7 +7,7 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // ❌ Prevent creating Admin directly from Register
+    // Prevent creating Admin directly from Register
     const allowedRoles = ["police", "fsl", "court"];
     if (!allowedRoles.includes(role)) {
       return res
