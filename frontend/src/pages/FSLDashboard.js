@@ -32,7 +32,7 @@ function FSLDashboard() {
   useEffect(() => {
     fetchList();
 
-    // 🔹 Fetch all Court users
+    // Fetch all Court users
     api
       .get("/users?role=court")
       .then((res) => setCourtUsers(res.data))
@@ -48,22 +48,23 @@ function FSLDashboard() {
     }
   };
 
-  // 🔹 Dark card style
+  // White Card Style
   const cardStyle = {
-    backgroundColor: "#2f2f2f",
-    color: "#ffffff",
-    border: "none",
+    backgroundColor: "#ffffff",
+    color: "#000000",
+    borderRadius: "12px",
+    border: "1px solid #e0e0e0",
   };
 
   return (
-    <div className="p-3">
-      <h3 className="mb-4 text-black">FSL Dashboard</h3>
+    <div className="p-4">
+      <h3 className="mb-4 text-center fw-bold">FSL Dashboard</h3>
 
-      <div className="card shadow-sm" style={cardStyle}>
+      <div className="card shadow-lg fade-in" style={cardStyle}>
         <div className="card-body">
           <div className="table-responsive">
             <table className="table table-hover align-middle mb-0">
-              <thead style={{ backgroundColor: "#1f1f1f", color: "#fff" }}>
+              <thead className="table-dark">
                 <tr>
                   <th>Case ID</th>
                   <th>Description</th>
@@ -75,14 +76,18 @@ function FSLDashboard() {
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="5" className="text-center p-4 text-light">
+                    <td colSpan="5" className="text-center p-4 text-muted">
                       Loading evidence...
                     </td>
                   </tr>
                 ) : data.length ? (
-                  data.map((ev) => (
-                    <tr key={ev._id} style={{ color: "#ddd" }}>
-                      <td className="fw-bold text-info">{ev.caseId}</td>
+                  data.map((ev, index) => (
+                    <tr
+                      key={ev._id}
+                      className="fade-in-row"
+                      style={{ animationDelay: `${index * 0.15}s` }}
+                    >
+                      <td className="fw-bold text-primary">{ev.caseId}</td>
                       <td>{ev.description}</td>
                       <td>
                         <span
@@ -102,7 +107,7 @@ function FSLDashboard() {
                       <td>{ev.currentHolder?.name || "—"}</td>
                       <td className="text-center">
                         <Link
-                          className="btn btn-sm btn-outline-info me-2"
+                          className="btn btn-sm btn-outline-primary me-2"
                           to={`/evidence/${ev._id}`}
                         >
                           View
@@ -151,8 +156,7 @@ function FSLDashboard() {
                   <tr>
                     <td
                       colSpan="5"
-                      className="text-center p-4"
-                      style={{ color: "#aaa" }}
+                      className="text-center p-4 text-muted"
                     >
                       No records found
                     </td>
@@ -163,11 +167,41 @@ function FSLDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Animations */}
+      <style>{`
+        .fade-in {
+          opacity: 0;
+          transform: translateY(10px);
+          animation: fadeInUp 0.6s forwards;
+        }
+        .fade-in-row {
+          opacity: 0;
+          transform: translateX(-10px);
+          animation: fadeInLeft 0.6s forwards;
+        }
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes fadeInLeft {
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        table th, table td {
+          vertical-align: middle;
+        }
+      `}</style>
     </div>
   );
 }
 
 export default FSLDashboard;
+
 
 
 

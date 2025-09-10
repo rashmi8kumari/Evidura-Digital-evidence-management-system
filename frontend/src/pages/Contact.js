@@ -44,9 +44,8 @@ const ContactUs = () => {
     }
   };
 
-  // Dark theme card style
   const cardStyle = {
-    backgroundColor: "#2f2f2f", // dark grey
+    backgroundColor: "#2f2f2f",
     color: "#ffffff",
     border: "none",
     borderRadius: "12px",
@@ -54,16 +53,16 @@ const ContactUs = () => {
 
   return (
     <div
-      className="text-white"
+      className="text-white d-flex align-items-center"
       style={{
         background: "linear-gradient(135deg, #001F3F, #003366)",
         minHeight: "100vh",
-        padding: "60px 0",
+        padding: "40px 0",
       }}
     >
       <div className="container">
         <h1 className="fw-bold text-center mb-5">Contact Us</h1>
-        <div className="row">
+        <div className="row justify-content-center">
           {/* Left Side - Office Info */}
           <div className="col-md-5 mb-4">
             <h4>Office</h4>
@@ -209,6 +208,7 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
 
 
 

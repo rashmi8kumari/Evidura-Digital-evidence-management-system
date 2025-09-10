@@ -43,12 +43,12 @@ function PoliceDashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="container py-4">
       {/* Heading + Button */}
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3 className="fw-bold text-dark">Police Dashboard</h3>
+      <div className="d-flex justify-content-between align-items-center mb-4 animate-fadeIn">
+        <h2 className="fw-bold text-dark">Police Dashboard</h2>
         <button
-          className="btn btn-success fw-semibold"
+          className="btn btn-success fw-semibold shadow-sm px-3"
           onClick={() => setShowAdd(true)}
         >
           + Add Evidence
@@ -56,11 +56,14 @@ function PoliceDashboard() {
       </div>
 
       {/* Filters */}
-      <div className="card shadow-sm border-0 mb-3">
+      <div
+        className="card shadow-sm border-0 mb-4 animate-slideUp"
+        style={{ borderRadius: "12px" }}
+      >
         <div className="card-body py-3">
-          <div className="row g-2 align-items-end">
+          <div className="row g-3 align-items-end">
             <div className="col-md-4">
-              <label className="form-label">Case ID</label>
+              <label className="form-label fw-semibold">Case ID</label>
               <input
                 placeholder="Search by caseId"
                 className="form-control"
@@ -69,7 +72,7 @@ function PoliceDashboard() {
               />
             </div>
             <div className="col-md-3">
-              <label className="form-label">Status</label>
+              <label className="form-label fw-semibold">Status</label>
               <select
                 className="form-select"
                 value={statusFilter}
@@ -85,7 +88,7 @@ function PoliceDashboard() {
             </div>
             <div className="col-md-2">
               <button
-                className="btn btn-outline-primary w-100 fw-semibold"
+                className="btn btn-outline-primary w-100 fw-semibold shadow-sm"
                 onClick={() => fetchList(1)}
               >
                 Apply
@@ -94,11 +97,15 @@ function PoliceDashboard() {
           </div>
         </div>
       </div>
-  {/* Evidence Table */}
-      <div className="card shadow-sm border-0 mb-4">
+
+      {/* Evidence Table */}
+      <div
+        className="card shadow-sm border-0 animate-fadeIn"
+        style={{ borderRadius: "12px" }}
+      >
         <div className="table-responsive" style={{ maxHeight: "450px" }}>
           <table className="table table-hover align-middle mb-0">
-            <thead className="table-secondary">
+            <thead className="table-dark text-white">
               <tr>
                 <th>Case ID</th>
                 <th>Description</th>
@@ -116,18 +123,19 @@ function PoliceDashboard() {
                 </tr>
               ) : data.length ? (
                 data.map((ev) => (
-                  <tr key={ev._id}>
+                  <tr key={ev._id} className="animate-rowHover">
                     <td className="fw-semibold">{ev.caseId}</td>
                     <td style={{ maxWidth: 280 }}>{ev.description}</td>
                     <td>
                       <span
-                        className={`badge ${
+                        className={`badge px-3 py-2 fw-semibold ${
                           ev.status === "Seized"
                             ? "bg-warning text-dark"
                             : ev.status === "In Court"
                             ? "bg-success"
                             : "bg-secondary"
                         }`}
+                        style={{ borderRadius: "8px" }}
                       >
                         {ev.status}
                       </span>
@@ -135,17 +143,17 @@ function PoliceDashboard() {
                     <td>{ev.currentHolder?.name || "—"}</td>
                     <td>
                       <Link
-                        className="btn btn-sm btn-outline-primary me-2"
+                        className="btn btn-sm btn-outline-primary me-2 shadow-sm"
                         to={`/evidence/${ev._id}`}
                       >
                         View
                       </Link>
                       {ev.status === "Seized" && (
                         <button
-                          className="btn btn-sm btn-warning fw-semibold"
+                          className="btn btn-sm btn-warning fw-semibold shadow-sm"
                           onClick={() => setTransferItem(ev)}
                         >
-                          Transfer 
+                          Transfer
                         </button>
                       )}
                     </td>
@@ -162,20 +170,20 @@ function PoliceDashboard() {
           </table>
         </div>
 
-        <div className="card-footer d-flex justify-content-between align-items-center p-2">
-          <span className="small">
+        <div className="card-footer d-flex justify-content-between align-items-center p-3">
+          <span className="small text-muted">
             Page {page} of {pages}
           </span>
           <div>
             <button
-              className="btn btn-sm btn-outline-primary me-2"
+              className="btn btn-sm btn-outline-primary me-2 shadow-sm"
               disabled={page <= 1}
               onClick={() => fetchList(page - 1)}
             >
               ◀ Prev
             </button>
             <button
-              className="btn btn-sm btn-outline-primary"
+              className="btn btn-sm btn-outline-primary shadow-sm"
               disabled={page >= pages}
               onClick={() => fetchList(page + 1)}
             >
@@ -212,7 +220,7 @@ function PoliceDashboard() {
 
 export default PoliceDashboard;
 
-/* AddEvidenceModal */
+/* ---------------- AddEvidenceModal ---------------- */
 function AddEvidenceModal({ show, onHide, onCreated }) {
   const [caseId, setCaseId] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -236,15 +244,15 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal show={show} onHide={onHide} centered animation>
       <form onSubmit={handleSubmit}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="bg-dark text-white">
           <Modal.Title>Add New Evidence</Modal.Title>
         </Modal.Header>
         <Modal.Body className="pt-2">
           {err && <div className="alert alert-danger">{err}</div>}
           <div className="mb-2">
-            <label className="form-label">Case ID</label>
+            <label className="form-label fw-semibold">Case ID</label>
             <input
               className="form-control"
               value={caseId}
@@ -253,7 +261,7 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
             />
           </div>
           <div className="mb-2">
-            <label className="form-label">Description</label>
+            <label className="form-label fw-semibold">Description</label>
             <textarea
               className="form-control"
               value={description}
@@ -276,7 +284,7 @@ function AddEvidenceModal({ show, onHide, onCreated }) {
   );
 }
 
-/* TransferModal remains same */
+/* ---------------- TransferModal ---------------- */
 function TransferModal({ evidence, onHide, onTransferred }) {
   const [users, setUsers] = React.useState([]);
   const [toUser, setToUser] = React.useState("");
@@ -320,9 +328,9 @@ function TransferModal({ evidence, onHide, onTransferred }) {
   };
 
   return (
-    <Modal show onHide={onHide} centered>
+    <Modal show onHide={onHide} centered animation>
       <form onSubmit={handleTransfer}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="bg-dark text-white">
           <Modal.Title>Transfer Evidence</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -333,7 +341,7 @@ function TransferModal({ evidence, onHide, onTransferred }) {
           {err && <div className="alert alert-danger">{err}</div>}
 
           <div className="mb-3">
-            <label className="form-label">Select FSL User</label>
+            <label className="form-label fw-semibold">Select FSL User</label>
             <select
               className="form-select"
               value={toUser}
@@ -374,3 +382,15 @@ function TransferModal({ evidence, onHide, onTransferred }) {
     </Modal>
   );
 }
+
+/* ---------------- Animations ---------------- */
+const style = document.createElement("style");
+style.innerHTML = `
+  .animate-fadeIn { animation: fadeIn 0.6s ease-in-out; }
+  .animate-slideUp { animation: slideUp 0.6s ease-in-out; }
+  .animate-rowHover:hover { background-color: #f8f9fa !important; }
+  @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+  @keyframes slideUp { from {opacity:0; transform:translateY(15px)} to {opacity:1; transform:translateY(0)} }
+`;
+document.head.appendChild(style);
+

@@ -38,7 +38,7 @@ function UserManagement() {
     try {
       await api.post("/admin/users", form);
       setForm({ name: "", email: "", role: "police", password: "" });
-      setOk("User added successfully");
+      setOk("User added successfully ✅");
       fetchUsers();
     } catch (err) {
       setErr(err.response?.data?.msg || "Add failed");
@@ -65,19 +65,22 @@ function UserManagement() {
   };
 
   const cardStyle = {
-    backgroundColor: "#2f2f2f", // dark grey
-    color: "#ffffff",
-    border: "none"
+    backgroundColor: "#fff", // white card
+    color: "#000",
+    border: "none",
+    borderRadius: "12px",
   };
 
   return (
     <div className="p-3">
-      <h3 className="mb-3 text-white">User Management</h3>
+      <h3 className="mb-3 fw-bold text-dark">User Management</h3>
 
       {/* Add User Form */}
       <div className="card shadow-sm mb-4" style={cardStyle}>
         <div className="card-body">
-          <h5 className="card-title mb-3 text-white">Add New User</h5>
+          <h5 className="card-title mb-3 text-primary fw-semibold">
+            Add New User
+          </h5>
 
           {err && <div className="alert alert-danger">{err}</div>}
           {ok && <div className="alert alert-success">{ok}</div>}
@@ -91,9 +94,7 @@ function UserManagement() {
                   placeholder="Full Name"
                   required
                   value={form.name}
-                  onChange={(e) =>
-                    setForm({ ...form, name: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                 />
                 <label htmlFor="name">Full Name</label>
               </div>
@@ -108,9 +109,7 @@ function UserManagement() {
                   placeholder="Email"
                   required
                   value={form.email}
-                  onChange={(e) =>
-                    setForm({ ...form, email: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
                 <label htmlFor="email">Email</label>
               </div>
@@ -122,9 +121,7 @@ function UserManagement() {
                   className="form-select"
                   id="role"
                   value={form.role}
-                  onChange={(e) =>
-                    setForm({ ...form, role: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, role: e.target.value })}
                 >
                   <option value="police">Police</option>
                   <option value="fsl">FSL</option>
@@ -164,13 +161,15 @@ function UserManagement() {
       {/* Users Table */}
       <div className="card shadow-sm" style={cardStyle}>
         <div className="table-responsive">
-          <table className="table table-hover align-middle mb-0 text-white">
-            <thead style={{ backgroundColor: "#3a3a3a" }}>
+          <table className="table table-hover align-middle mb-0">
+            <thead style={{ backgroundColor: "#f1f3f5" }}>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th style={{ width: 220 }}>Actions</th>
+                <th className="text-dark">Name</th>
+                <th className="text-dark">Email</th>
+                <th className="text-dark">Role</th>
+                <th className="text-dark" style={{ width: 220 }}>
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -222,6 +221,7 @@ function UserManagement() {
 }
 
 export default UserManagement;
+
 
 
 

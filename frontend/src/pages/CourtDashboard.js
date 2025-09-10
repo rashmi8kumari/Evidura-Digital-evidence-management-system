@@ -12,7 +12,7 @@ function CourtDashboard() {
     try {
       const res = await api.get("/evidence");
 
-      // Court me sirf wahi records dikhne chahiye jo Court ke liye aaye hain
+      // Sirf Court ke liye records
       const courtData = res.data.data.filter(
         (ev) => ev.status === "In Transit" || ev.status === "In Court"
       );
@@ -32,27 +32,28 @@ function CourtDashboard() {
   const doAction = async (id, action) => {
     try {
       await api.post(`/custody/${id}/transfer`, { action });
-      fetchList(); // refresh after action
+      fetchList(); // refresh
     } catch (err) {
       alert(err.response?.data?.msg || "Action failed");
     }
   };
 
-  // 🔹 Dark card + table style
+  // Card Style
   const cardStyle = {
-    backgroundColor: "#2f2f2f",
-    color: "#ffffff",
-    border: "none",
+    backgroundColor: "#ffffff",
+    color: "#000000",
+    borderRadius: "10px",
+    border: "1px solid #e0e0e0",
   };
 
   return (
-    <div className="p-3">
-      <h3 className="mb-4 text-black">Court Dashboard</h3>
+    <div className="p-4">
+      <h3 className="mb-4 text-center fw-bold">Court Dashboard</h3>
 
-      <div className="card shadow-sm" style={cardStyle}>
+      <div className="card shadow-lg" style={cardStyle}>
         <div className="card-body table-responsive">
-          <table className="table table-hover align-middle mb-0 text-white">
-            <thead style={{ backgroundColor: "#1c1c1c" }}>
+          <table className="table table-hover align-middle mb-0">
+            <thead style={{ backgroundColor: "#f5f5f5" }}>
               <tr>
                 <th>Case ID</th>
                 <th>Description</th>
@@ -69,17 +70,21 @@ function CourtDashboard() {
                   </td>
                 </tr>
               ) : data.length ? (
-                data.map((ev) => (
-                  <tr key={ev._id}>
+                data.map((ev, index) => (
+                  <tr
+                    key={ev._id}
+                    className="fade-in-row"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <td>
-                      <span className="fw-bold text-info">{ev.caseId}</span>
+                      <span className="fw-bold text-primary">{ev.caseId}</span>
                     </td>
                     <td>{ev.description}</td>
                     <td>
                       <span
                         className={`badge px-3 py-2 ${
                           ev.status === "In Court"
-                            ? "bg-success"
+                            ? "bg-success text-white"
                             : "bg-warning text-dark"
                         }`}
                       >
@@ -89,13 +94,12 @@ function CourtDashboard() {
                     <td>{ev.currentHolder?.name || "—"}</td>
                     <td className="text-center">
                       <Link
-                        className="btn btn-sm btn-outline-info me-2"
+                        className="btn btn-sm btn-outline-primary me-2"
                         to={`/evidence/${ev._id}`}
                       >
                         View
                       </Link>
 
-                      {/* Receive Button only if status = In Transit */}
                       {ev.status === "In Transit" && (
                         <button
                           className="btn btn-sm btn-success"
@@ -105,7 +109,6 @@ function CourtDashboard() {
                         </button>
                       )}
 
-                      {/* Already in Court → Readonly badge */}
                       {ev.status === "In Court" && (
                         <span className="badge bg-success">
                           Evidence in Court
@@ -125,11 +128,33 @@ function CourtDashboard() {
           </table>
         </div>
       </div>
+
+      {/* Custom Animation CSS */}
+      <style>{`
+        .fade-in-row {
+          opacity: 0;
+          transform: translateY(10px);
+          animation: fadeInUp 0.6s forwards;
+        }
+
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        table tbody tr:hover {
+          background-color: #f1f1f1;
+          transition: all 0.3s ease-in-out;
+        }
+      `}</style>
     </div>
   );
 }
 
 export default CourtDashboard;
+
 
 
 

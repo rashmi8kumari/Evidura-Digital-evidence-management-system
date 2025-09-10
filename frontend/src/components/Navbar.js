@@ -1,11 +1,25 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getRole, clearAuth } from "../utils/auth";
-import { FaBars } from "react-icons/fa";
-import * as bootstrap from "bootstrap"; //bootstrap instance import
+import {
+  FaBars,
+  FaInfoCircle,
+  FaUsers,
+  FaBook,
+  FaPenFancy,
+  FaSignInAlt,
+  FaUserPlus,
+  FaBalanceScale,
+  FaMicroscope,
+  FaGavel,
+  FaUserShield,
+  FaUsersCog,
+} from "react-icons/fa";
+import * as bootstrap from "bootstrap";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const role = getRole();
 
   const logout = () => {
@@ -13,7 +27,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // Sidebar close helper
   const closeSidebar = () => {
     const sidebar = document.getElementById("sidebarMenu");
     if (sidebar) {
@@ -22,11 +35,22 @@ const Navbar = () => {
     }
   };
 
+  const isActive = (path) =>
+    location.pathname === path
+      ? "active-link"
+      : "nav-link-custom";
+
   return (
     <>
       {/* Top Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow sticky-top">
+      <nav
+        className="navbar navbar-expand-lg shadow sticky-top"
+        style={{
+          background: "#243b55", // Bootstrap Blue
+        }}
+      >
         <div className="container-fluid">
+          {/* Sidebar Toggle Button */}
           <button
             className="btn btn-outline-light me-2"
             type="button"
@@ -36,22 +60,25 @@ const Navbar = () => {
           >
             <FaBars />
           </button>
+
+          {/* Brand */}
           <Link
-            className="navbar-brand fw-bold"
+            className="navbar-brand fw-bold text-light"
             to="/"
             style={{
-              fontSize: "1.8rem", // bigger font
-              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", // better font
-              letterSpacing: "1px", // optional: for style
+              fontSize: "1.8rem",
+              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+              letterSpacing: "1px",
             }}
           >
             EVIDURA
           </Link>
 
+          {/* Role + Logout */}
           {role && (
             <div className="d-flex align-items-center">
-              <span className="text-light me-3">
-                Role: <strong>{role}</strong>
+              <span className="text-light me-3 small">
+                Role: <strong className="text-warning">{role}</strong>
               </span>
               <button className="btn btn-sm btn-danger" onClick={logout}>
                 Logout
@@ -67,10 +94,10 @@ const Navbar = () => {
         tabIndex="-1"
         id="sidebarMenu"
         aria-labelledby="sidebarMenuLabel"
-        style={{ width: "260px" }}
+        style={{ width: "270px" }}
       >
         <div className="offcanvas-header border-bottom">
-          <h5 className="offcanvas-title" id="sidebarMenuLabel">
+          <h5 className="offcanvas-title text-info" id="sidebarMenuLabel">
             Navigation
           </h5>
           <button
@@ -84,124 +111,128 @@ const Navbar = () => {
         <div className="offcanvas-body">
           <ul className="nav flex-column">
             {/* General Pages */}
-            <li className="nav-item mb-2">
+            <li className="nav-item mb-1">
               <Link
-                className="nav-link text-white"
+                className={`nav-link d-flex align-items-center ${isActive("/about")}`}
                 to="/about"
-                onClick={closeSidebar} // Sidebar close
+                onClick={closeSidebar}
               >
-                About
+                <FaInfoCircle className="me-2" /> About
               </Link>
             </li>
-            <li className="nav-item mb-2">
+            <li className="nav-item mb-1">
               <Link
-                className="nav-link text-white"
+                className={`nav-link d-flex align-items-center ${isActive("/community")}`}
                 to="/community"
                 onClick={closeSidebar}
               >
-                Community Support
+                <FaUsers className="me-2" /> Community
               </Link>
-              <ul className="ms-3 mt-1">
+              <ul className="ms-4 mt-1">
                 <li>
                   <Link
-                    className="nav-link text-light small"
+                    className={`nav-link small d-flex align-items-center ${isActive("/community/user-guide")}`}
                     to="/community/user-guide"
                     onClick={closeSidebar}
                   >
-                    User Guide
+                    <FaBook className="me-2" /> User Guide
                   </Link>
                 </li>
                 <li>
                   <Link
-                    className="nav-link text-light small"
+                    className={`nav-link small d-flex align-items-center ${isActive("/community/module-writer")}`}
                     to="/community/module-writer"
                     onClick={closeSidebar}
                   >
-                    Module Writer Guide
+                    <FaPenFancy className="me-2" /> Module Writer
                   </Link>
                 </li>
               </ul>
             </li>
 
+            <hr className="text-secondary" />
+
             {/* Auth Links */}
             {!role && (
               <>
-                <li className="nav-item mb-2">
+                <li className="nav-item mb-1">
                   <Link
-                    className="nav-link text-white"
+                    className={`nav-link d-flex align-items-center ${isActive("/login")}`}
                     to="/login"
                     onClick={closeSidebar}
                   >
-                    Login
+                    <FaSignInAlt className="me-2" /> Login
                   </Link>
                 </li>
-                <li className="nav-item mb-2">
+                <li className="nav-item mb-1">
                   <Link
-                    className="nav-link text-white"
+                    className={`nav-link d-flex align-items-center ${isActive("/register")}`}
                     to="/register"
                     onClick={closeSidebar}
                   >
-                    Register
+                    <FaUserPlus className="me-2" /> Register
                   </Link>
                 </li>
               </>
             )}
 
-            {/* Role Based */}
+            <hr className="text-secondary" />
+
+            {/* Role Based Navigation */}
             {role === "police" && (
-              <li className="nav-item mb-2">
+              <li className="nav-item mb-1">
                 <Link
-                  className="nav-link text-white"
+                  className={`nav-link d-flex align-items-center ${isActive("/police-dashboard")}`}
                   to="/police-dashboard"
                   onClick={closeSidebar}
                 >
-                  Police Dashboard
+                  <FaBalanceScale className="me-2" /> Police Dashboard
                 </Link>
               </li>
             )}
 
             {role === "fsl" && (
-              <li className="nav-item mb-2">
+              <li className="nav-item mb-1">
                 <Link
-                  className="nav-link text-white"
+                  className={`nav-link d-flex align-items-center ${isActive("/fsl-dashboard")}`}
                   to="/fsl-dashboard"
                   onClick={closeSidebar}
                 >
-                  FSL Dashboard
+                  <FaMicroscope className="me-2" /> FSL Dashboard
                 </Link>
               </li>
             )}
 
             {role === "court" && (
-              <li className="nav-item mb-2">
+              <li className="nav-item mb-1">
                 <Link
-                  className="nav-link text-white"
+                  className={`nav-link d-flex align-items-center ${isActive("/court-dashboard")}`}
                   to="/court-dashboard"
                   onClick={closeSidebar}
                 >
-                  Court Dashboard
+                  <FaGavel className="me-2" /> Court Dashboard
                 </Link>
               </li>
             )}
 
             {role === "admin" && (
               <>
-                <li className="nav-item mb-2">
+                <li className="nav-item mb-1">
                   <Link
-                    className="nav-link text-white"
+                    className={`nav-link d-flex align-items-center ${isActive("/admin-dashboard")}`}
                     to="/admin-dashboard"
                     onClick={closeSidebar}
                   >
-                    Admin Dashboard
+                    <FaUserShield className="me-2" /> Admin Dashboard
                   </Link>
                 </li>
-                <li className="nav-item mb-2">
+                <li className="nav-item mb-1">
                   <Link
-                    className="nav-link text-white"
+                    className={`nav-link d-flex align-items-center ${isActive("/admin/users")}`}
                     to="/admin/users"
                     onClick={closeSidebar}
                   >
-                    User Management
+                    <FaUsersCog className="me-2" /> User Management
                   </Link>
                 </li>
               </>
@@ -209,8 +240,36 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+
+      {/* Custom CSS */}
+      <style>{`
+        .nav-link-custom {
+          color: #ddd;
+          text-decoration: none;
+          font-size: 1rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+        .nav-link-custom:hover {
+          color: #00e6e6 !important;
+          text-shadow: 0 0 8px #00e6e6;
+        }
+        .active-link {
+          color: #fff !important;
+          font-weight: bold;
+          text-shadow: 0 0 10px #fff;
+        }
+        .offcanvas-body ul li {
+          margin-bottom: 5px;
+        }
+      `}</style>
     </>
   );
 };
 
 export default Navbar;
+
+
+
+
+

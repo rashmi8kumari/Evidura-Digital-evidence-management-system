@@ -28,24 +28,25 @@ function EvidenceDetails() {
   }, [id]);
 
   if (loading)
-    return <div className="p-4 text-white">Loading evidence details...</div>;
+    return <div className="p-4 text-muted">Loading evidence details...</div>;
   if (!item) return <div className="p-4 text-muted">No evidence found</div>;
 
-  // 🔹 Dark card style
+  // Card Style (white theme)
   const cardStyle = {
-    backgroundColor: "#2f2f2f",
-    color: "#ffffff",
-    border: "none",
+    backgroundColor: "#ffffff",
+    color: "#000000",
+    borderRadius: "10px",
+    border: "1px solid #e0e0e0",
   };
 
   return (
-    <div className="p-3">
-      <h3 className="mb-4 text-black">Evidence Details</h3>
+    <div className="p-4">
+      <h3 className="mb-4 text-center fw-bold">Evidence Details</h3>
 
       {/* Evidence Info Card */}
-      <div className="card shadow-sm mb-4" style={cardStyle}>
+      <div className="card shadow-lg mb-4 fade-in" style={cardStyle}>
         <div className="card-body">
-          <h4 className="card-title text-info">{item.caseId}</h4>
+          <h4 className="card-title text-primary fw-bold">{item.caseId}</h4>
           <p className="card-text">{item.description}</p>
 
           <div className="mb-2">
@@ -79,33 +80,43 @@ function EvidenceDetails() {
       </div>
 
       {/* Custody Timeline */}
-      <div className="card shadow-sm" style={cardStyle}>
+      <div className="card shadow-lg fade-in" style={cardStyle}>
         <div className="card-body">
-          <h5 className="card-title text-warning">Custody Timeline</h5>
-          <ul className="list-group list-group-flush mt-2">
+          <h5 className="card-title text-dark fw-bold">Custody Timeline</h5>
+          <ul className="list-group list-group-flush mt-3">
             {logs.length ? (
-              logs.map((l) => (
+              logs.map((l, index) => (
                 <li
-                  className="list-group-item d-flex justify-content-between align-items-start"
+                  className="list-group-item fade-in-row"
                   key={l._id}
-                  style={{ backgroundColor: "#2f2f2f", color: "#fff" }} // dark bg + white text
+                  style={{
+                    backgroundColor: "#ffffff",
+                    color: "#000",
+                    animationDelay: `${index * 0.15}s`,
+                  }}
                 >
                   <div>
-                    <div className="fw-bold text-white">{l.action}</div>
-                    <small style={{ color: "#ddd" }}>
+                    <div className="fw-bold text-primary">{l.action}</div>
+                    <small className="text-muted">
                       {new Date(l.timestamp).toLocaleString()}
                     </small>
-                    <div style={{ color: "#ccc", fontSize: "0.85rem" }}>
-                      From: {l.fromUser?.name || "—"} → To:{" "}
-                      {l.toUser?.name || "—"}
+                    <div style={{ fontSize: "0.9rem" }}>
+                      From:{" "}
+                      <span className="fw-semibold">
+                        {l.fromUser?.name || "—"}
+                      </span>{" "}
+                      → To:{" "}
+                      <span className="fw-semibold">
+                        {l.toUser?.name || "—"}
+                      </span>
                     </div>
                   </div>
                 </li>
               ))
             ) : (
               <li
-                className="list-group-item"
-                style={{ backgroundColor: "#2f2f2f", color: "#ccc" }}
+                className="list-group-item text-muted"
+                style={{ backgroundColor: "#fff" }}
               >
                 No custody logs available
               </li>
@@ -113,8 +124,42 @@ function EvidenceDetails() {
           </ul>
         </div>
       </div>
+
+      {/* Animations */}
+      <style>{`
+        .fade-in {
+          opacity: 0;
+          transform: translateY(10px);
+          animation: fadeInUp 0.6s forwards;
+        }
+        .fade-in-row {
+          opacity: 0;
+          transform: translateX(-10px);
+          animation: fadeInLeft 0.6s forwards;
+        }
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes fadeInLeft {
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        .list-group-item {
+          border: none;
+          border-bottom: 1px solid #eee;
+        }
+        .list-group-item:last-child {
+          border-bottom: none;
+        }
+      `}</style>
     </div>
   );
 }
 
 export default EvidenceDetails;
+

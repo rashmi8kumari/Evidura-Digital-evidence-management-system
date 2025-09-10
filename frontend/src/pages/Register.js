@@ -29,90 +29,85 @@ function Register() {
     setOk("");
     try {
       await api.post("/auth/register", form);
-      setOk("Registration successful! Redirecting to login...");
+      setOk("✅ Registration successful! Redirecting...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
-      setErr(error.response?.data?.msg || "Registration failed");
+      setErr(error.response?.data?.msg || "Registration failed ❌");
     }
   };
 
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh" }} // ✅ no background here
     >
+      {/* Card only */}
       <div
         className="card shadow-lg border-0 p-4"
         style={{
+          maxWidth: "420px",
           width: "100%",
-          maxWidth: "340px", // aur chhota box
           borderRadius: "12px",
-          backgroundColor: "#3a3a3a", // grey background
-          color: "#fff",
+          backgroundColor: "#fff", // card white
+          color: "#000", // text black
         }}
       >
-        <h4 className="mb-3 text-center fw-bold text-success">
+        <h3 className="mb-2 text-center fw-bold text-success">
           Create an Account
-        </h4>
-        <p className="text-center mb-4" style={{ color: "#e0e0e0" }}>
-          Fill in the details to register
+        </h3>
+        <p className="text-center mb-4 text-muted">
+          Fill in your details to register
         </p>
 
-        {err && <div className="alert alert-danger">{err}</div>}
-        {ok && <div className="alert alert-success">{ok}</div>}
+        {err && <div className="alert alert-danger py-2">{err}</div>}
+        {ok && <div className="alert alert-success py-2">{ok}</div>}
 
         <form onSubmit={handleRegister}>
           <div className="form-floating mb-3">
             <input
               name="name"
-              className="form-control bg-dark text-light border-0"
+              className="form-control"
               id="name"
               placeholder="Full Name"
               value={form.name}
               onChange={onChange}
               required
             />
-            <label htmlFor="name" className="text-secondary">
-              Full Name
-            </label>
+            <label htmlFor="name">Full Name</label>
           </div>
 
           <div className="form-floating mb-3">
             <input
               name="email"
               type="email"
-              className="form-control bg-dark text-light border-0"
+              className="form-control"
               id="email"
               placeholder="Email"
               value={form.email}
               onChange={onChange}
               required
             />
-            <label htmlFor="email" className="text-secondary">
-              Email
-            </label>
+            <label htmlFor="email">Email</label>
           </div>
 
           <div className="form-floating mb-3">
             <input
               name="password"
               type="password"
-              className="form-control bg-dark text-light border-0"
+              className="form-control"
               id="password"
               placeholder="Password"
               value={form.password}
               onChange={onChange}
               required
             />
-            <label htmlFor="password" className="text-secondary">
-              Password
-            </label>
+            <label htmlFor="password">Password</label>
           </div>
 
           <div className="form-floating mb-4">
             <select
               name="role"
-              className="form-select bg-dark text-light border-0"
+              className="form-select"
               id="role"
               value={form.role}
               onChange={onChange}
@@ -123,9 +118,7 @@ function Register() {
                 </option>
               ))}
             </select>
-            <label htmlFor="role" className="text-secondary">
-              Select Role
-            </label>
+            <label htmlFor="role">Select Role</label>
           </div>
 
           <button
@@ -152,6 +145,12 @@ function Register() {
 }
 
 export default Register;
+
+
+
+
+
+
 
 
 

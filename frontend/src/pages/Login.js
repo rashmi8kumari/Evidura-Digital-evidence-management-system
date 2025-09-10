@@ -30,20 +30,20 @@ function Login() {
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }} // full screen height for perfect centering
+      style={{ minHeight: "100vh" }}
     >
       <div
-        className="card shadow-lg border-0 p-4"
+        className="card shadow-lg border-0 p-4 fade-in"
         style={{
           width: 420,
-          borderRadius: "12px",
-          backgroundColor: "#2f2f2f",
-          color: "#fff",
+          borderRadius: "14px",
+          backgroundColor: "#ffffff",
+          color: "#000000",
         }}
       >
-        <h3 className="mb-3 text-center fw-bold text-info">Sign In</h3>
-        <p className="text-center mb-4" style={{ color: "#ffffff" }}>
-          Enter your credentials to access the system
+        <h3 className="mb-3 text-center fw-bold text-primary">Welcome Back</h3>
+        <p className="text-center mb-4 text-muted">
+          Please sign in to continue
         </p>
 
         {err && <div className="alert alert-danger">{err}</div>}
@@ -52,27 +52,29 @@ function Login() {
           <div className="form-floating mb-3">
             <input
               type="email"
-              className="form-control bg-dark text-light border-0"
+              className="form-control border-0 shadow-sm"
               id="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              style={{ backgroundColor: "#f1f3f5" }}
             />
             <label htmlFor="email" className="text-secondary">
               Email address
             </label>
           </div>
 
-          <div className="form-floating mb-3">
+          <div className="form-floating mb-4">
             <input
               type="password"
-              className="form-control bg-dark text-light border-0"
+              className="form-control border-0 shadow-sm"
               id="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              style={{ backgroundColor: "#f1f3f5" }}
             />
             <label htmlFor="password" className="text-secondary">
               Password
@@ -80,29 +82,45 @@ function Login() {
           </div>
 
           <button
-            className="btn btn-info w-100 py-2 fw-bold text-dark"
+            className="btn btn-primary w-100 py-2 fw-bold"
             type="submit"
           >
             Login
           </button>
         </form>
 
-        <p className="text-center mt-3 mb-0">
+        <p className="text-center mt-4 mb-0 text-muted">
           Don’t have an account?{" "}
           <Link
             to="/register"
             className="fw-semibold"
-            style={{ color: "#0dcaf0", textDecoration: "none" }}
+            style={{ color: "#0d6efd", textDecoration: "none" }}
           >
             Register here
           </Link>
         </p>
       </div>
+
+      {/* Animation */}
+      <style>{`
+        .fade-in {
+          opacity: 0;
+          transform: translateY(15px);
+          animation: fadeInUp 0.6s forwards;
+        }
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }
 
 export default Login;
+
 
 
 

@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const PrivacyPolicy = () => {
+  // Fade-in animation on mount
+  useEffect(() => {
+    const sections = document.querySelectorAll(".animate-section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.2 }
+    );
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="d-flex justify-content-center align-items-start py-5">
+    <div className="d-flex justify-content-center align-items-start py-5 px-3">
       <div
-        className="card shadow-lg border-0 p-4"
-        style={{ maxWidth: "900px", width: "100%", borderRadius: "12px" }}
+        className="card shadow-lg border-0 p-4 animate-fadeIn"
+        style={{
+          maxWidth: "900px",
+          width: "100%",
+          borderRadius: "14px",
+          backgroundColor: "#ffffff",
+          color: "#212529",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        }}
       >
         <h1 className="text-center fw-bold mb-2 text-primary">
           Privacy Policy
@@ -14,19 +36,9 @@ const PrivacyPolicy = () => {
           (Last Updated on September 7, 2025; Version 2025/1.0)
         </p>
 
-        <p>
-          Your privacy is important to us. Therefore, we are committed to
-          respecting your privacy and the confidentiality of your personal data
-          and content. This Privacy Policy is designed to assist you in
-          understanding how <strong>Evidence Tracker</strong> (“we,” “our” or
-          “us”) uses and safeguards the information you provide in the course of
-          purchasing and/or using our products, services, and websites (the
-          “Services”).
-        </p>
-
         {/* Sections */}
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
             What Information Do We Collect?
           </h4>
           <ul className="mt-2">
@@ -53,8 +65,10 @@ const PrivacyPolicy = () => {
           </ul>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Age Limitation</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Age Limitation
+          </h4>
           <p>
             The Services are not directed to persons under the age of 18. If we
             become aware that a person under 18 has provided us with personal
@@ -63,8 +77,8 @@ const PrivacyPolicy = () => {
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
             How Do We Use This Information?
           </h4>
           <p>
@@ -80,8 +94,8 @@ const PrivacyPolicy = () => {
           </ul>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
             Sharing & Transfer of Information
           </h4>
           <p>
@@ -92,8 +106,10 @@ const PrivacyPolicy = () => {
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Security of Your Data</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Security of Your Data
+          </h4>
           <p>
             We take appropriate organizational and technical measures to
             safeguard your data. However, internet communications are not always
@@ -102,8 +118,10 @@ const PrivacyPolicy = () => {
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Your Rights</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Your Rights
+          </h4>
           <p>
             You can review, update, or request deletion of your personal data by
             contacting us. Upon verification, we will take steps to fulfill your
@@ -111,8 +129,10 @@ const PrivacyPolicy = () => {
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Cookies</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Cookies
+          </h4>
           <p>
             We use cookies and log files to enhance your experience. These may
             include session cookies for login, analytics cookies for usage data,
@@ -120,24 +140,30 @@ const PrivacyPolicy = () => {
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Third-Party Links</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Third-Party Links
+          </h4>
           <p>
             Our Services may contain links to external websites. We are not
             responsible for the privacy practices or content of those sites.
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Changes to This Policy</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Changes to This Policy
+          </h4>
           <p>
             We may update this Privacy Policy from time to time. Updates will be
             posted on this page with the “Last Updated” date.
           </p>
         </section>
 
-        <section className="mt-4">
-          <h4 className="fw-semibold text-primary">Contact Us</h4>
+        <section className="mt-4 animate-section">
+          <h4 className="fw-semibold text-primary heading-underline">
+            Contact Us
+          </h4>
           <p>
             For questions regarding this Privacy Policy, please contact us at:{" "}
             <strong>privacy@evidura.in</strong>.
@@ -149,4 +175,28 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
+
+/* ---------------- Extra Styling ---------------- */
+const style = document.createElement("style");
+style.innerHTML = `
+  .animate-fadeIn { animation: fadeIn 0.8s ease-in-out; }
+  .animate-section { opacity: 0; transform: translateY(20px); transition: all 0.7s ease; }
+  .animate-section.visible { opacity: 1; transform: translateY(0); }
+  .heading-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .heading-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 3px;
+    background-color: #0d6efd;
+    transition: width 0.4s ease;
+  }
+  .heading-underline.visible::after { width: 100%; }
+  @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+`;
+document.head.appendChild(style);
+
 
