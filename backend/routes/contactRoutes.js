@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
     const messages = await Contact.find().sort({ date: -1 });
     res.json(messages);
   } catch (error) {
-    console.error("❌ Error fetching contacts:", error);
+    console.error(" Error fetching contacts:", error);
     res.status(500).json({ error: "Failed to fetch contact messages" });
   }
 });

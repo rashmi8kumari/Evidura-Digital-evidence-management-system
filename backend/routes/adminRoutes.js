@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-// 🔒 All routes in this file require Admin role
+// All routes in this file require Admin role
 // Apply auth + role guard at router-level instead of repeating
 router.use(authMiddleware, requireRole("admin"));
 
