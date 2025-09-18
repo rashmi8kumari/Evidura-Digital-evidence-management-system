@@ -4,10 +4,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { api } from "../utils/auth";
 
 const roles = [
-  { value: "police", label: "Police" },
-  { value: "fsl", label: "FSL Lab" },
-  { value: "court", label: "Court" },
-  { value: "admin", label: "Admin" },
+  { value: "police", label: "POLICE" },
+  { value: "fsl", label: "FSL LAB" },
+  { value: "court", label: "COURT" },
+  { value: "admin", label: "ADMIN" },
 ];
 
 function Register() {
@@ -29,7 +29,7 @@ function Register() {
     setOk("");
     try {
       await api.post("/auth/register", form);
-      setOk("✅ Registration successful! Redirecting...");
+      setOk("Registration successful! Redirecting...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
       setErr(error.response?.data?.msg || "Registration failed ❌");

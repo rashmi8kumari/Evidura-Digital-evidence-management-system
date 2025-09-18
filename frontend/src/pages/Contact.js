@@ -26,7 +26,7 @@ const ContactUs = () => {
 
       const data = await response.json();
       if (data.success) {
-        alert("✅ Message sent successfully!");
+        alert("Message sent successfully!");
         setForm({
           firstName: "",
           lastName: "",

@@ -2,7 +2,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";   // ✅ New Footer
+import Footer from "./components/Footer";   // New Footer
 import PrivateRoute from "./components/PrivateRoute";
 
 import Login from "./pages/Login";
@@ -14,13 +14,13 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserManagement from "./pages/UserManagement";
 import EvidenceDetails from "./pages/EvidenceDetails";
 
-// 🔹 General pages
+// General pages
 import About from "./pages/About";
 import Community from "./pages/Community";
 import UserGuide from "./pages/UserGuide";
 import ModuleWriterGuide from "./pages/ModuleWriterGuide";
 
-// 🔹 Footer linked pages
+// Footer linked pages
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
@@ -29,7 +29,7 @@ function App() {
   return (
     <div
       style={{
-        backgroundImage: "url('/images/background.jpg')", // ✅ Place image in public/images/
+        backgroundImage: "url('/images/background.jpg')", // Place image in public/images/
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
         backgroundPosition: "center",

@@ -12,7 +12,7 @@ function Community() {
 
   return (
     <div className="card shadow-lg p-4" style={cardStyle}>
-      <h2 className="mb-3 text-primary fw-bold">🌐 Community Support</h2>
+      <h2 className="mb-3 text-primary fw-bold">Community Support</h2>
       <p className="text-muted">
         Need help? Our community provides guides and resources to get you started quickly and effectively.
       </p>
