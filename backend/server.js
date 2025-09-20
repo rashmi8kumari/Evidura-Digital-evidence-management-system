@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "build")));
 
 // Catch-all route for React Router
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Connect DB & Start Server
